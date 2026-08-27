@@ -96,9 +96,9 @@ select#msel{flex:1;min-width:160px;padding:10px 14px;border-radius:10px;border:1
 .pctitle{font-size:12px;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 .pctitle .ptot{color:var(--ink);font-size:14px;font-weight:700;letter-spacing:0;text-transform:none}
 table.ptab{width:100%;border-collapse:collapse;font-size:13.5px}
-.ptab td{padding:6px 2px;border-bottom:1px solid var(--grid)}
-.ptab tr.item:hover td{background:var(--surface2)}
-.ptab tr.grp td{padding:14px 8px 6px;font-weight:700;color:var(--ink);font-size:12.5px;background:var(--surface2);border-radius:8px 8px 0 0;border-bottom:1px solid var(--border)}
+.ptab td{padding:6px 2px;border-bottom:1px solid var(--grid);transition:background .12s ease}
+.ptab tr.item:hover td{background:rgba(255,255,255,.045)}
+.ptab tr.grp td{padding:14px 8px 6px;font-weight:700;color:var(--ink);font-size:12.5px;background:rgba(255,255,255,.035);border-radius:8px 8px 0 0;border-bottom:1px solid var(--border)}
 .ptab tr.grp:first-child td{padding-top:6px}
 .ptab tr.item td{padding-left:8px;padding-right:8px}
 .ptab tr.rest td{border-bottom:none;border-top:none;font-weight:700;padding:12px 8px 2px;font-size:15px}
@@ -115,9 +115,40 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
 .p3row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:11px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;border-left:3px solid var(--pool3);font-size:13.5px;color:var(--ink2)}
 .p3row .num{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
 .mfoot{display:flex;align-items:center;gap:10px;margin-top:16px}
-.bar{flex:1;height:6px;background:var(--surface2);border-radius:6px;overflow:hidden} .fill{display:block;height:100%;background:var(--good)} .pct{color:var(--good);font-weight:600;font-size:12px}
+.bar{flex:1;height:6px;background:var(--surface2);border-radius:6px;overflow:hidden}
+.fill{display:block;height:100%;background:linear-gradient(90deg,var(--pool1),var(--good));border-radius:6px;transition:width 1s cubic-bezier(.22,.61,.36,1)}
+.pct{color:var(--good);font-weight:600;font-size:12px}
+
+/* тег-лайн наставника */
+.tagline{font-size:14.5px;color:var(--ink2);margin-bottom:16px;padding:10px 14px;background:rgba(255,255,255,.035);border-radius:10px;border-left:3px solid var(--aqua)}
+
+/* дорожная карта пути */
+.journey{background:var(--surface2);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px 18px;margin-bottom:20px;box-shadow:0 8px 20px -12px rgba(0,0,0,.5)}
+.journey-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.jt-lab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.jt-pct{font-size:20px;font-weight:800;color:var(--good);font-variant-numeric:tabular-nums;transition:color .3s}
+.rm-track{position:relative;display:flex;align-items:center;gap:0;height:34px}
+.rm-line{position:absolute;left:9px;right:9px;top:50%;height:3px;background:var(--grid);border-radius:3px;transform:translateY(-50%)}
+.rm-fill{position:absolute;left:9px;top:50%;height:3px;background:linear-gradient(90deg,var(--pool1),var(--good));border-radius:3px;transform:translateY(-50%);transition:width .8s cubic-bezier(.22,.61,.36,1)}
+.rm-dot{position:relative;flex:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.rm-dot i{width:9px;height:9px;border-radius:50%;background:var(--grid);border:2px solid var(--bg);transition:transform .2s,background .2s,box-shadow .2s;position:relative;z-index:1}
+.rm-dot.p1 i{background:var(--blue)} .rm-dot.p2 i{background:var(--orange)} .rm-dot.p3 i{background:var(--good)}
+.rm-dot.done i{background:var(--good)}
+.rm-dot:hover i{transform:scale(1.4)}
+.rm-dot.cur i{transform:scale(1.9);box-shadow:0 0 0 4px rgba(12,163,12,.22)}
+.rm-mile{position:absolute;top:-15px;font-size:11px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.rm-tip{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:11px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;color:var(--ink2)}
+.rm-dot:hover .rm-tip{opacity:1}
+
+/* анимации появления */
+@keyframes monthIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.month.show{animation:monthIn .35s cubic-bezier(.22,.61,.36,1)}
+.poolcard,.hstat{transition:transform .18s ease,box-shadow .18s ease}
+.poolcard:hover,.hstat:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(0,0,0,.6)}
+.chk{transition:transform .12s ease} .chk:active{transform:scale(1.15)}
+
 @media(max-width:820px){.kpis,.phases,.goals,.debts{grid-template-columns:1fr 1fr} .poolgrid{grid-template-columns:1fr} .hero{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.kpis,.phases,.goals,.debts{grid-template-columns:1fr} .hero{grid-template-columns:1fr}}
+@media(max-width:560px){.kpis,.phases,.goals,.debts{grid-template-columns:1fr} .hero{grid-template-columns:1fr} .rm-track{overflow-x:auto}}
 </style></head>
 <body><div class="wrap">
 <h1>Мой выход из долгов</h1>
@@ -360,7 +391,10 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
 
 <!-- ===== ПЛАТЁЖКА ===== -->
 <div class="view" id="payments">
-  <p class="sub" style="margin-bottom:14px">✓ — платёж закрывает кредит. Галочки — отмечай оплаченное.</p>
+  <div class="journey">
+    <div class="journey-top"><span class="jt-lab">Твой путь к свободе</span><span class="jt-pct" id="jPct">0%</span></div>
+    <div class="rm-track" id="rmTrack"></div>
+  </div>
   <div class="mswitch">
     <button class="mbtn" id="prev">‹</button>
     <select id="msel"><option value="0">Август 2026</option>
@@ -382,14 +416,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
 <option value="16">Декабрь 2027</option></select>
     <button class="mbtn" id="next">›</button>
     <span class="mcount" id="mcount"></span>
-    <button class="rbtn" id="reset">Сбросить галочки месяца</button>
+    <button class="rbtn" id="reset">Сбросить галочки</button>
   </div>
   <section class="month" data-idx="0">
       <div class="mhead"><div class="mtitle">Август 2026</div><div class="mph p1">Фаза 1 · Море + Стас</div></div>
+      <div class="tagline">🌊 Режим экономии — море и Стас в приоритете, дальше будет легче.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">0 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$5 319</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$24 629</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="5319" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="24629" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">1 920 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-08|food"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-08|util"><span class="tl">Коммуналка (350 + 170 просрочка за июнь)</span></td><td class="num">520 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-08|fun"><span class="tl">Развлечения</span></td><td class="num">200 BYN</td></tr><tr class="rest"><td>Остаток</td><td class="num">−1 920 BYN</td></tr></table></div>
@@ -397,14 +432,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:3%"></span></span><span class="pct">3%</span></div>
+        <span class="bar"><span class="fill" data-w="3" style="width:0%"></span></span><span class="pct">3%</span></div>
     </section>
 <section class="month" data-idx="1">
       <div class="mhead"><div class="mtitle">Сентябрь 2026</div><div class="mph p1">Фаза 1 · Море + Стас</div></div>
+      <div class="tagline">🌊 Режим экономии — море и Стас в приоритете, дальше будет легче.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">6 944 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$22 972</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="6944" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="22972" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">1 460 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-09|food"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-09|util"><span class="tl">Коммуналка (180 за июль + 80 инет/тел)</span></td><td class="num">260 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-09|fun"><span class="tl">Развлечения</span></td><td class="num">0 BYN</td></tr><tr class="grp"><td>Разовое</td><td class="num">5 484 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-09|extra|ДД (55к RUB + 750 BYN)"><span class="tl">ДД (55к RUB + 750 BYN)</span></td><td class="num">2 750 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-09|extra|Маше"><span class="tl">Маше</span></td><td class="num">500 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-09|extra|Личные расходы + сборы на море (SPF/сандали/одежда/такси в аэропорт)"><span class="tl">Личные расходы + сборы на море (SPF/сандали/одежда/такси в аэропорт)</span></td><td class="num">2 234 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
@@ -412,14 +448,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:9%"></span></span><span class="pct">9%</span></div>
+        <span class="bar"><span class="fill" data-w="9" style="width:0%"></span></span><span class="pct">9%</span></div>
     </section>
 <section class="month" data-idx="2">
       <div class="mhead"><div class="mtitle">Октябрь 2026</div><div class="mph p1">Фаза 1 · Море + Стас</div></div>
+      <div class="tagline">💪 Закрываешь ещё 4 кредита в этом месяце.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">12 292 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$16 650</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="12292" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="16650" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 6</td><td class="num">9 734 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">2 050 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|cr|Овердрафт Маши"><span class="tl">Овердрафт Маши</span><span class="rt">20%</span></td><td class="num">610 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">3 968 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|cr|Карта 100 дней Маши"><span class="tl">Карта 100 дней Маши</span><span class="rt">18%</span></td><td class="num">2 830 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">176 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">2 550 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-10|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+8 BYN</td></tr></table></div>
@@ -427,14 +464,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:34%"></span></span><span class="pct">34%</span></div>
+        <span class="bar"><span class="fill" data-w="34" style="width:0%"></span></span><span class="pct">34%</span></div>
     </section>
 <section class="month" data-idx="3">
       <div class="mhead"><div class="mtitle">Ноябрь 2026</div><div class="mph p1">Фаза 1 · Море + Стас</div></div>
+      <div class="tagline">💪 Закрываешь ещё 5 кредитов в этом месяце.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">9 219 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$11 706</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="9219" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="11706" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 10</td><td class="num">6 505 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">229 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">517 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">4 476 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Овердрафт Альфа Личная"><span class="tl">Овердрафт Альфа Личная</span><span class="rt">20%</span></td><td class="num">138 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">185 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">110 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Покупка частями"><span class="tl">Покупка частями</span><span class="rt">0%</span></td><td class="num">100 BYN<span class="tag">✓</span></td></tr><tr class="grp"><td>Быт</td><td class="num">2 550 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+164 BYN</td></tr></table></div>
@@ -442,14 +480,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:54%"></span></span><span class="pct">54%</span></div>
+        <span class="bar"><span class="fill" data-w="54" style="width:0%"></span></span><span class="pct">54%</span></div>
     </section>
 <section class="month" data-idx="4">
       <div class="mhead"><div class="mtitle">Декабрь 2026</div><div class="mph p1">Фаза 1 · Море + Стас</div></div>
+      <div class="tagline">🤝 В этом месяце закрывается долг Стасу — большая гора с плеч.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$4 845</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="4845" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 4</td><td class="num">10 899 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">52 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">9 150 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">1 587 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">110 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">2 550 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+72 BYN</td></tr></table></div>
@@ -457,14 +496,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:81%"></span></span><span class="pct">81%</span></div>
+        <span class="bar"><span class="fill" data-w="81" style="width:0%"></span></span><span class="pct">81%</span></div>
     </section>
 <section class="month" data-idx="5">
       <div class="mhead"><div class="mtitle">Январь 2027</div><div class="mph p2">Фаза 2 · Гасим кредиты</div></div>
+      <div class="tagline">🔥 Последний кредит закрывается в этом месяце!</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 3</td><td class="num">9 766 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">4 318 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">2 743 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">2 705 BYN<span class="tag">✓</span></td></tr><tr class="grp"><td>Быт</td><td class="num">2 550 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">1 125 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cush"><span class="tl">Подушка</span></td><td class="num">374 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+80 BYN</td></tr></table></div>
@@ -472,14 +512,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="6">
       <div class="mhead"><div class="mtitle">Февраль 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cush"><span class="tl">Подушка</span></td><td class="num">2 797 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|wed"><span class="tl">Свадьба</span></td><td class="num">85 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|apt"><span class="tl">Квартира</span></td><td class="num">85 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -487,14 +528,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="7">
       <div class="mhead"><div class="mtitle">Март 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|wed"><span class="tl">Свадьба</span></td><td class="num">1 483 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|apt"><span class="tl">Квартира</span></td><td class="num">1 483 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -502,14 +544,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="8">
       <div class="mhead"><div class="mtitle">Апрель 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|wed"><span class="tl">Свадьба</span></td><td class="num">1 483 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|apt"><span class="tl">Квартира</span></td><td class="num">1 483 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -517,14 +560,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="9">
       <div class="mhead"><div class="mtitle">Май 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|wed"><span class="tl">Свадьба</span></td><td class="num">1 483 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|apt"><span class="tl">Квартира</span></td><td class="num">1 483 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -532,14 +576,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="10">
       <div class="mhead"><div class="mtitle">Июнь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|wed"><span class="tl">Свадьба</span></td><td class="num">1 483 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|apt"><span class="tl">Квартира</span></td><td class="num">1 483 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -547,14 +592,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="11">
       <div class="mhead"><div class="mtitle">Июль 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|wed"><span class="tl">Свадьба</span></td><td class="num">1 483 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|apt"><span class="tl">Квартира</span></td><td class="num">1 483 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -562,14 +608,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="12">
       <div class="mhead"><div class="mtitle">Август 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет — копим на свадьбу и квартиру.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 913 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|wed"><span class="tl">Свадьба</span></td><td class="num">35 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|apt"><span class="tl">Квартира</span></td><td class="num">35 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|inv"><span class="tl">Инвестиции</span></td><td class="num">2 896 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+78 BYN</td></tr></table></div>
@@ -577,14 +624,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="13">
       <div class="mhead"><div class="mtitle">Сентябрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">📈 Долгов нет — свободные деньги работают на будущее.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|inv"><span class="tl">Инвестиции</span></td><td class="num">2 967 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -592,14 +640,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="14">
       <div class="mhead"><div class="mtitle">Октябрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">📈 Долгов нет — свободные деньги работают на будущее.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|inv"><span class="tl">Инвестиции</span></td><td class="num">2 967 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -607,14 +656,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="15">
       <div class="mhead"><div class="mtitle">Ноябрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">📈 Долгов нет — свободные деньги работают на будущее.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|inv"><span class="tl">Инвестиции</span></td><td class="num">2 967 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -622,14 +672,15 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 <section class="month" data-idx="16">
       <div class="mhead"><div class="mtitle">Декабрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">📈 Долгов нет — свободные деньги работают на будущее.</div>
       <div class="hero">
-        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval">13 521 BYN</span></div>
-        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval">$3 360</span></div>
-        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval">$0</span></div>
+        <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
+        <div class="hstat h2"><span class="hlab">10 число</span><span class="hval" data-val="3360" data-unit="usd">$0</span></div>
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid">
         <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">4 530 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|food"><span class="tl">Еда</span></td><td class="num">1 600 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|util"><span class="tl">Коммуналка</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|gym"><span class="tl">Спортзал</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Одежда (себе)"><span class="tl">Одежда (себе)</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Маша — баловать"><span class="tl">Маша — баловать</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Фонд путешествий"><span class="tl">Фонд путешествий</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Фонд техники"><span class="tl">Фонд техники</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Быт и дом"><span class="tl">Быт и дом</span></td><td class="num">180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Подарки/праздники"><span class="tl">Подарки/праздники</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Здоровье (стоматология и пр.)"><span class="tl">Здоровье (стоматология и пр.)</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|life|Помощь маме"><span class="tl">Помощь маме</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|fun"><span class="tl">Развлечения</span></td><td class="num">500 BYN</td></tr><tr class="grp"><td>Копим</td><td class="num">8 914 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|inv"><span class="tl">Инвестиции</span></td><td class="num">2 967 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+77 BYN</td></tr></table></div>
@@ -637,13 +688,13 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       </div>
       <div class="p3row"><span>Аванс 25 числа — на личное</span><span class="num">100 BYN</span></div>
       <div class="mfoot"><span class="paid">оплачено 0/0</span>
-        <span class="bar"><span class="fill" style="width:100%"></span></span><span class="pct">100%</span></div>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
     </section>
 </div>
 </div>
 
 <script>
-const D={"labels": ["Авг 2026", "Сен 2026", "Окт 2026", "Ноя 2026", "Дек 2026", "Янв 2027", "Фев 2027", "Мар 2027", "Апр 2027", "Май 2027", "Июн 2027", "Июл 2027", "Авг 2027", "Сен 2027", "Окт 2027", "Ноя 2027", "Дек 2027"], "credLine": [16574.0, 15917.0, 11596.0, 8652.0, 4845.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "stasLine": [8055.0, 7055.0, 5055.0, 3055.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "alloc": {"Жизнь": [662.0, 503.0, 879.0, 879.0, 879.0, 879.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0], "Море": [3295.0, 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Стас": [0.0, 1000.0, 2000.0, 2000.0, 3055.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Кредиты (мин)": [916.0, 916.0, 916.0, 686.0, 378.0, 309.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Кредиты (досрочно)": [0.0, 0.0, 3656.0, 2443.0, 3564.0, 4611.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Подушка": [0.0, 0.0, 0.0, 0.0, 0.0, 2062.0, 5938.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Свадьба": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 180.0, 3149.0, 3149.0, 3149.0, 3149.0, 3149.0, 75.0, 0.0, 0.0, 0.0, 0.0], "Квартира": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 180.0, 3149.0, 3149.0, 3149.0, 3149.0, 3149.0, 75.0, 0.0, 0.0, 0.0, 0.0], "Инвестиции": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6147.0, 6298.0, 6298.0, 6298.0, 6298.0]}};
+const D={"labels": ["Авг 2026", "Сен 2026", "Окт 2026", "Ноя 2026", "Дек 2026", "Янв 2027", "Фев 2027", "Мар 2027", "Апр 2027", "Май 2027", "Июн 2027", "Июл 2027", "Авг 2027", "Сен 2027", "Окт 2027", "Ноя 2027", "Дек 2027"], "credLine": [16574.0, 15917.0, 11596.0, 8652.0, 4845.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "stasLine": [8055.0, 7055.0, 5055.0, 3055.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "alloc": {"Жизнь": [662.0, 503.0, 879.0, 879.0, 879.0, 879.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0, 1562.0], "Море": [3295.0, 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Стас": [0.0, 1000.0, 2000.0, 2000.0, 3055.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Кредиты (мин)": [916.0, 916.0, 916.0, 686.0, 378.0, 309.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Кредиты (досрочно)": [0.0, 0.0, 3656.0, 2443.0, 3564.0, 4611.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Подушка": [0.0, 0.0, 0.0, 0.0, 0.0, 2062.0, 5938.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "Свадьба": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 180.0, 3149.0, 3149.0, 3149.0, 3149.0, 3149.0, 75.0, 0.0, 0.0, 0.0, 0.0], "Квартира": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 180.0, 3149.0, 3149.0, 3149.0, 3149.0, 3149.0, 75.0, 0.0, 0.0, 0.0, 0.0], "Инвестиции": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6147.0, 6298.0, 6298.0, 6298.0, 6298.0]}, "roadmap": [{"ym": "2026-08", "label": "Авг 2026", "phase": 1, "prog": 2.6, "milestones": [["🌊", "Море оплачено"]]}, {"ym": "2026-09", "label": "Сен 2026", "phase": 1, "prog": 9.1, "milestones": []}, {"ym": "2026-10", "label": "Окт 2026", "phase": 1, "prog": 34.1, "milestones": []}, {"ym": "2026-11", "label": "Ноя 2026", "phase": 1, "prog": 53.7, "milestones": []}, {"ym": "2026-12", "label": "Дек 2026", "phase": 1, "prog": 80.8, "milestones": [["🤝", "Стас закрыт"]]}, {"ym": "2027-01", "label": "Янв 2027", "phase": 2, "prog": 100.0, "milestones": [["🔥", "Кредиты закрыты"]]}, {"ym": "2027-02", "label": "Фев 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-03", "label": "Мар 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-04", "label": "Апр 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-05", "label": "Май 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-06", "label": "Июн 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-07", "label": "Июл 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-08", "label": "Авг 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-09", "label": "Сен 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-10", "label": "Окт 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-11", "label": "Ноя 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-12", "label": "Дек 2027", "phase": 3, "prog": 100.0, "milestones": []}]};
 const muted="#898781",grid="#2c2c2a"; const money=v=>"$"+Math.round(v).toLocaleString("ru-RU");
 Chart.defaults.font.family='system-ui,-apple-system,"Segoe UI",sans-serif'; Chart.defaults.color=muted;
 let charted=false;
@@ -681,12 +732,39 @@ document.querySelectorAll(".chk[data-k]").forEach(c=>{
     localStorage.setItem("df_checks",JSON.stringify(CK)); applyChk(c); updatePaid(); };
 });
 
+// ---- дорожная карта пути ----
+const rmTrack=document.getElementById("rmTrack"), jPct=document.getElementById("jPct");
+const fmtSp=n=>Math.round(n).toLocaleString("ru-RU").replace(/,/g," ");
+rmTrack.innerHTML='<div class="rm-line"></div><div class="rm-fill" id="rmFill" style="width:0%"></div>'+
+  D.roadmap.map((r,i)=>`<div class="rm-dot p${r.phase}" data-i="${i}"><i></i>${r.milestones.map(m=>`<span class="rm-mile" title="${m[1]}">${m[0]}</span>`).join("")}<span class="rm-tip">${r.label} · ${r.prog}%</span></div>`).join("");
+rmTrack.querySelectorAll(".rm-dot").forEach(d=>d.onclick=()=>showMonth(+d.dataset.i));
+
+function animateNum(el,to,unit){
+  const from=0, dur=650, t0=performance.now();
+  function step(t){
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    const v=Math.round(from+(to-from)*e);
+    el.textContent = unit==="byn" ? fmtSp(v)+" BYN" : "$"+fmtSp(v);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
 // ---- переключатель месяцев ----
 const months=Array.from(document.querySelectorAll(".month"));
 const sel=document.getElementById("msel"),mc=document.getElementById("mcount");
 let cur=0;
 function showMonth(i){ cur=Math.max(0,Math.min(months.length-1,i));
-  months.forEach((m,j)=>m.classList.toggle("show",j===cur)); sel.value=cur; mc.textContent=(cur+1)+" / "+months.length; updatePaid(); }
+  months.forEach((m,j)=>m.classList.toggle("show",j===cur)); sel.value=cur; mc.textContent=(cur+1)+" / "+months.length; updatePaid();
+  const m=months[cur];
+  m.querySelectorAll(".hval[data-val]").forEach(el=>animateNum(el,+el.dataset.val,el.dataset.unit));
+  const fillEl=m.querySelector(".fill"); if(fillEl){ const w=fillEl.dataset.w; requestAnimationFrame(()=>{fillEl.style.width="0%"; requestAnimationFrame(()=>fillEl.style.width=w+"%");}); }
+  const rm=D.roadmap[cur];
+  rmTrack.querySelectorAll(".rm-dot").forEach((d,j)=>d.classList.toggle("cur",j===cur));
+  rmTrack.querySelectorAll(".rm-dot").forEach((d,j)=>d.classList.toggle("done",D.roadmap[j].prog>=99.5));
+  document.getElementById("rmFill").style.width=((cur)/(months.length-1)*100)+"%";
+  jPct.textContent=rm.prog+"%";
+}
 sel.onchange=()=>showMonth(+sel.value);
 document.getElementById("prev").onclick=()=>showMonth(cur-1);
 document.getElementById("next").onclick=()=>showMonth(cur+1);
