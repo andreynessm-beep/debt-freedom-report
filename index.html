@@ -67,10 +67,10 @@ select#msel{flex:1;min-width:160px;padding:10px 14px;border-radius:10px;border:1
 .mtitle{font-size:22px;font-weight:700;letter-spacing:-.4px}
 .mph{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
 .mph.p1{background:rgba(57,135,229,.16);color:var(--blue)} .mph.p2{background:rgba(217,89,38,.16);color:var(--orange)} .mph.p3{background:rgba(12,163,12,.16);color:var(--green)}
-.hero{display:grid;grid-template-columns:1fr 1fr .8fr;gap:12px;margin-bottom:18px}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .hstat{position:relative;background:var(--surface2);border:1px solid var(--border2);box-shadow:0 8px 20px -12px var(--shadow);border-radius:14px;padding:14px 16px;overflow:hidden}
 .hstat::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--dot)}
-.hstat.h1{--dot:var(--pool1)} .hstat.h2{--dot:var(--pool2)} .hstat.h3{--dot:var(--muted);opacity:.85}
+.hstat.h1{--dot:var(--pool1)} .hstat.h2{--dot:var(--pool2)} .hstat.h3{--dot:var(--muted);opacity:.85} .hstat.h4{--dot:var(--green)}
 .hlab{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
 .hlab::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dot)}
 .hval{display:block;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:6px;letter-spacing:-.5px}
@@ -173,6 +173,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="12292" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="583" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="20998" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -189,6 +190,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="9219" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="852" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="19586" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -205,6 +207,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="1252" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="16683" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -221,6 +224,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="1985" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="13719" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -237,6 +241,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="3985" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="12221" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -253,6 +258,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="4985" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="9699" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -269,6 +275,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="4985" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="6138" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -285,6 +292,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="4985" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="2517" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -301,6 +309,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="6147" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -317,6 +326,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="9203" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -333,6 +343,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="12260" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -349,6 +360,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="15317" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -365,6 +377,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="18373" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -381,6 +394,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="21429" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
@@ -397,6 +411,7 @@ tr.done .tl{text-decoration:line-through;color:var(--muted)}
       <div class="hero">
         <div class="hstat h1"><span class="hlab">1 число</span><span class="hval" data-val="13521" data-unit="byn">0 BYN</span></div>
         
+        <div class="hstat h4"><span class="hlab">Накоплено</span><span class="hval" data-val="24487" data-unit="usd">$0</span></div>
         <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
       </div>
       <div class="poolgrid single">
