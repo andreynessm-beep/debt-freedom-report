@@ -178,11 +178,10 @@ h1{font-size:26px;margin:0 0 2px;letter-spacing:-.4px} .sub{margin:0 0 18px;colo
 .hpct{font-weight:700;color:var(--ink)}
 .pbar{display:block;height:5px;border-radius:5px;background:var(--grid);margin-top:8px;overflow:hidden}
 .pbar i{display:block;height:100%;border-radius:5px;background:var(--dot);transition:width .6s ease}
-.poolgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.poolgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
 .poolgrid>*{min-width:0}
-.svcol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.svcol .svbox:first-child{grid-column:1/-1}
-.svbox{padding:12px 14px 6px}
+.svcol{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.svbox{padding:14px 18px 8px}
 .svh{display:flex;flex-direction:column;align-items:flex-start;gap:1px;margin-bottom:2px}
 .svt{font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:6px}
 .svt i{display:inline-block;width:8px;height:8px;border-radius:50%}
@@ -776,7 +775,7 @@ let svPrev=null;
 function svNiceStep(x){const p=Math.pow(10,Math.floor(Math.log10(x)));for(const k of [1,2,2.5,5,10]) if(k*p>=x) return k*p; return 10*p;}
 function svFmt(v){return v>=1000?(v/1000).toFixed(v%1000?1:0).replace(".0","")+"k":String(Math.round(v));}
 function svDrawOne(cont,k,col,cur,prev){
-  const S=D.savings, n=S.length, R=D.rate, W=Math.max(260,Math.round(cont.clientWidth||520)), H=k==="t"?170:140, pl=38, pr=12, pt=20, pb=22, DUR=650;
+  const S=D.savings, n=S.length, R=D.rate, W=Math.max(260,Math.round(cont.clientWidth||520)), H=k==="t"?240:210, pl=38, pr=12, pt=20, pb=22, DUR=650;
   const mx=Math.max(1,...S.map(p=>p[k]));
   const step=svNiceStep(mx/3), top=Math.ceil(mx/step)*step;
   const X=i=>pl+(W-pl-pr)*(n>1?i/(n-1):.5), Y=v=>pt+(H-pt-pb)*(1-v/top);
