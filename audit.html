@@ -896,6 +896,7 @@ document.getElementById("next").onclick=()=>showMonth(cur+1);
 document.getElementById("reset").onclick=()=>{ const m=months[cur];
   m.querySelectorAll(".chk[data-k]").forEach(c=>{ delete CK[c.dataset.k]; applyChk(c); });
   localStorage.setItem("df_checks_audit",JSON.stringify(CK)); updatePaid(); };
-showMonth(0);
+// открываем на ТЕКУЩЕМ месяце (по дате на устройстве); если вне диапазона — ближайший край
+showMonth((()=>{ const d=new Date(), k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); const i=D.roadmap.findIndex(r=>r.ym===k); return i<0?(k<D.roadmap[0].ym?0:D.roadmap.length-1):i; })());
 </script>
 </body></html>
