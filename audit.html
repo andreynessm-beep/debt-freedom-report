@@ -190,7 +190,9 @@ h1{font-size:26px;margin:0 0 2px;letter-spacing:-.4px} .sub{margin:0 0 18px;colo
 .svc{position:relative}
 .svcap{font-size:11px;color:var(--muted);margin:0 0 2px}
 .svc svg{width:100%;height:auto;display:block;overflow:visible}
-.svp,.svl{transition:opacity .3s ease}.svl{pointer-events:none;font-variant-numeric:tabular-nums}
+.svp,.svl{transition:opacity .5s ease .5s}
+.svpulse{animation:svpl 1.8s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes svpl{0%{transform:scale(1);opacity:.45}100%{transform:scale(3.2);opacity:0}}.svl{pointer-events:none;font-variant-numeric:tabular-nums}
 .sv-tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:7px 10px;font-size:12.5px;box-shadow:0 10px 24px -10px rgba(0,0,0,.45);display:none;z-index:6;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sv-tip b{display:block;margin-bottom:2px;font-size:12.5px}
 .sv-tip small{color:var(--muted);margin-left:5px;display:block}
@@ -775,25 +777,32 @@ let svPrev=null;
 function svNiceStep(x){const p=Math.pow(10,Math.floor(Math.log10(x)));for(const k of [1,2,2.5,5,10]) if(k*p>=x) return k*p; return 10*p;}
 function svFmt(v){return v>=1000?(v/1000).toFixed(v%1000?1:0).replace(".0","")+"k":String(Math.round(v));}
 function svDrawOne(cont,k,col,cur,prev){
-  const S=D.savings, n=S.length, R=D.rate, W=Math.max(260,Math.round(cont.clientWidth||520)), H=k==="t"?240:210, pl=38, pr=12, pt=20, pb=22, DUR=650;
+  const S=D.savings, n=S.length, R=D.rate, W=Math.max(260,Math.round(cont.clientWidth||520)), H=k==="t"?240:210, pl=40, pr=16, pt=34, pb=26, DUR=900;
   const mx=Math.max(1,...S.map(p=>p[k]));
   const step=svNiceStep(mx/3), top=Math.ceil(mx/step)*step;
   const X=i=>pl+(W-pl-pr)*(n>1?i/(n-1):.5), Y=v=>pt+(H-pt-pb)*(1-v/top);
   const P=i=>X(i)+","+Y(S[i][k]);
   const baseEnd = prev===null ? -1 : (prev<cur ? prev : cur);
   const animFrom = prev===null ? 0 : (prev<cur ? prev : cur);
-  let g="";
+  let g=`<defs><linearGradient id="sg_${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${col}" stop-opacity=".32"/><stop offset="100%" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>`;
   for(let v=0;v<=top+1e-6;v+=step){ g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)" stroke-width="1"/><text x="${pl-5}" y="${Y(v)+3.5}" text-anchor="end" font-size="10.5" fill="var(--muted)">${svFmt(v)}</text>`; }
-  const maxLab=Math.max(2,Math.floor((W-pl-pr)/58)), xs=Math.max(1,Math.ceil(n/maxLab));
+  const maxLab=Math.max(2,Math.floor((W-pl-pr)/72)), xs=Math.max(1,Math.ceil(n/maxLab));
   let lastLab=-99;
   S.forEach((p,i)=>{ if(i%xs===0 && (n-1-i>=xs*0.7||i===n-1)){ lastLab=i; g+=`<text x="${X(i)}" y="${H-5}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${p.l.replace(/ 20(\d\d)/," $1")}</text>`; } });
   g+=`<line class="svhov" x1="0" x2="0" y1="${pt}" y2="${H-pb}" stroke="var(--ink)" stroke-width="1" opacity="0"/>`;
   g+=`<polyline points="${Array.from({length:n},(_,i)=>P(i)).join(" ")}" fill="none" stroke="${col}" stroke-width="1.6" stroke-dasharray="3 4" opacity=".35" stroke-linejoin="round"/>`;
+  g+=`<path class="svarea" d="M${X(0)},${Y(0)} ${Array.from({length:cur+1},(_,i)=>"L"+X(i)+","+Y(S[i][k])).join(" ")} L${X(cur)},${Y(0)} Z" fill="url(#sg_${k})" style="opacity:0;transition:opacity 1s ease"/>`;
   if(baseEnd>=1) g+=`<polyline points="${Array.from({length:baseEnd+1},(_,i)=>P(i)).join(" ")}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
   if(animFrom<cur) g+=`<polyline class="svnew" points="${Array.from({length:cur-animFrom+1},(_,j)=>P(animFrom+j)).join(" ")}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
-  const lx=X(cur), ly=Y(S[cur][k]), anc=lx>W*0.82?"end":(lx<pl+30?"start":"middle");
-  g+=`<circle class="svp" cx="${lx}" cy="${ly}" r="4.6" fill="${col}" stroke="var(--surface)" stroke-width="1.6" style="opacity:0"/>`;
-  g+=`<text class="svl" x="${lx}" y="${ly-9}" text-anchor="${anc}" font-size="11" font-weight="700" fill="var(--ink)" style="opacity:0">${fmtSp(S[cur][k])}</text>`;
+  const lx=X(cur), ly=Y(S[cur][k]), anc=lx>W*0.84?"end":(lx<pl+30?"start":"middle"), ty=ly<pt+14?ly+20:ly-11;
+  g+=`<line x1="${lx}" x2="${lx}" y1="${pt-6}" y2="${H-pb}" stroke="${col}" stroke-width="1" stroke-dasharray="2 3" opacity=".35"/>`;
+  g+=`<circle class="svpulse" cx="${lx}" cy="${ly}" r="5" fill="${col}" style="opacity:0"/>`;
+  g+=`<circle class="svp" cx="${lx}" cy="${ly}" r="5" fill="${col}" stroke="var(--surface)" stroke-width="2" style="opacity:0"/>`;
+  g+=`<text class="svl" x="${lx}" y="${ty}" text-anchor="${anc}" font-size="12" font-weight="700" fill="var(--ink)" style="opacity:0">${fmtSp(S[cur][k])}</text>`;
+  let pk=0; for(let i=0;i<=cur;i++) if(S[i][k]>S[pk][k]) pk=i;
+  if(pk!==cur && S[pk][k]>0 && Math.abs(X(pk)-lx)>52){
+    g+=`<circle class="svp" cx="${X(pk)}" cy="${Y(S[pk][k])}" r="3.4" fill="var(--surface)" stroke="${col}" stroke-width="2" style="opacity:0"/>`;
+    g+=`<text class="svl" x="${X(pk)}" y="${Y(S[pk][k])-9}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink2)" style="opacity:0">${fmtSp(S[pk][k])}</text>`; }
   const cw=(W-pl-pr)/(n>1?n-1:1);
   for(let i=0;i<n;i++) g+=`<rect class="svhit" data-i="${i}" x="${X(i)-cw/2}" y="${pt}" width="${cw}" height="${H-pt-pb}" fill="transparent"/>`;
   cont.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">${g}</svg><div class="sv-tip"></div>`;
@@ -801,7 +810,7 @@ function svDrawOne(cont,k,col,cur,prev){
   const np=cont.querySelector(".svnew");
   if(np){ const L=np.getTotalLength(); np.style.strokeDasharray=L; np.style.strokeDashoffset=L;
     np.getBoundingClientRect(); np.style.transition=`stroke-dashoffset ${DUR}ms cubic-bezier(.22,.61,.36,1)`; np.style.strokeDashoffset=0; }
-  requestAnimationFrame(()=>requestAnimationFrame(()=>cont.querySelectorAll(".svp,.svl").forEach(c=>{ c.style.opacity=1; })));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>cont.querySelectorAll(".svp,.svl,.svarea").forEach(c=>{ c.style.opacity=1; })));
   const show=i=>{
     const p=S[i]; hov.setAttribute("x1",X(i)); hov.setAttribute("x2",X(i)); hov.setAttribute("opacity",".3");
     tip.innerHTML=`<b>${p.f}</b>${fmtSp(p[k])} BYN · ${money(p[k]/R)}<small>всего ${money(p["c"+k]/R)}</small>`;
