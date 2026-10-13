@@ -1,469 +1,621 @@
-<!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мой выход из долгов · вариант «Аудит»</title>
 <meta name="robots" content="noindex,nofollow">
-<title>Аудит финансов и план выхода из долгов</title>
 <style>
 :root{--bg:#f4f3ef;--surface:#fcfcfb;--surface2:#efeee9;--ink:#0b0b0b;--ink2:#52514e;--muted:#78766f;--grid:#e1e0d9;--border:rgba(11,11,11,.12);
---border2:rgba(11,11,11,.16);--tint:rgba(11,11,11,.035);--tint2:rgba(11,11,11,.05);--shadow:rgba(11,11,11,.10);
---blue:#2a78d6;--aqua:#1baf7a;--yellow:#c98500;--orange:#d9622c;--violet:#4a3aa7;--green:#0ca30c;--red:#c8382f;}
+--border2:rgba(11,11,11,.16);--tint:rgba(11,11,11,.035);--tint2:rgba(11,11,11,.05);--shadow:rgba(11,11,11,.10);--shadow2:rgba(11,11,11,.14);
+--blue:#2a78d6;--aqua:#1baf7a;--yellow:#c98500;--orange:#d9622c;--violet:#4a3aa7;--green:#0ca30c;--good:#0ca30c;--warn:#d9622c;
+--pool1:#1baf7a;--pool2:#2a78d6;--pool3:#4a3aa7;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
-.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 90px}
-h1{font-size:28px;margin:0 0 4px;letter-spacing:-.5px}
-h2{font-size:22px;margin:38px 0 6px;letter-spacing:-.3px}
-h3{font-size:16px;margin:0 0 6px}
-.sub{color:var(--ink2);margin:0 0 14px;font-size:14px}
-.nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin:0 0 18px}
-.nav a{color:var(--blue);text-decoration:none}.nav a:hover{text-decoration:underline}
-.lead{color:var(--ink2);font-size:14px;margin:0 0 14px;max-width:900px}
-.verdict{background:linear-gradient(135deg,rgba(25,158,112,.14),rgba(57,135,229,.10));border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:16px;font-size:16px}
-.verdict b{color:#0b7a55}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:10px}
-.kpi{position:relative;background:var(--surface2);border:1px solid var(--border2);box-shadow:0 8px 20px -12px var(--shadow);border-radius:14px;padding:14px 16px;overflow:hidden}
-.kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--dot,var(--muted))}
-.kpi .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.kpi .val{font-size:24px;font-weight:700;margin-top:4px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
-.kpi .note{font-size:12.5px;color:var(--ink2);margin-top:2px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin:12px 0}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:12px}
-.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
-.p-red{background:rgba(200,56,47,.14);color:var(--red)}.p-blue{background:rgba(42,120,214,.14);color:var(--blue)}
-.p-green{background:rgba(12,163,12,.14);color:var(--green)}.p-orange{background:rgba(217,98,44,.14);color:var(--orange)}.p-gray{background:rgba(120,118,111,.16);color:var(--muted)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:7px 8px;text-align:left;border-bottom:1px solid var(--grid);vertical-align:top}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 80px}
+h1{font-size:28px;margin:0 0 3px;letter-spacing:-.5px} .sub{color:var(--ink2);margin:0 0 18px;font-size:14px}
+.tabs{display:flex;gap:8px;margin:0 0 22px;position:sticky;top:0;background:rgba(13,13,13,.94);backdrop-filter:blur(6px);padding:10px 0;z-index:20;border-bottom:1px solid var(--border)}
+.tab{font-size:15px;font-weight:600;padding:9px 18px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--ink2);cursor:pointer}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.view{display:none} .view.active{display:block}
+.hero-note{background:linear-gradient(135deg,rgba(25,158,112,.14),rgba(57,135,229,.10));border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin-bottom:16px;font-size:16px}
+.hero-note b{color:var(--aqua)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+.kpi .lab{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.kpi .val{font-size:29px;font-weight:700;margin-top:6px;letter-spacing:-1px} .kpi .note{color:var(--ink2);font-size:13px;margin-top:2px}
+.kpi.debt .val{color:var(--orange)} .kpi.free .val{color:var(--aqua)} .kpi.flow .val{color:var(--blue)} .kpi.cush .val{color:var(--green)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:22px}
+.card h2{font-size:17px;margin:0 0 4px} .card .cs{color:var(--muted);font-size:13px;margin:0 0 16px}
+.chart-box{position:relative;height:340px}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.phase{background:var(--surface);border:1px solid var(--border);border-left-width:4px;border-radius:14px;padding:16px 18px}
+.phase.f1{border-left-color:var(--blue)} .phase.f2{border-left-color:var(--orange)} .phase.f3{border-left-color:var(--green)}
+.phase .pt{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.phase .ph{font-size:16px;font-weight:700;margin:3px 0 6px} .phase .pd{font-size:13.5px;color:var(--ink2)}
+.phase .pdate{margin-top:8px;font-size:13px;color:var(--aqua);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px} th,td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--grid)}
 th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-tr.tot td{font-weight:700;border-top:2px solid var(--border2);background:var(--tint)}
-tr.sel td{background:rgba(25,158,112,.10)}
-.scroll{overflow-x:auto}
-ul.clean{margin:6px 0 0;padding-left:18px}ul.clean li{margin:4px 0;font-size:14px}
-ol.clean{margin:6px 0 0;padding-left:20px}ol.clean li{margin:6px 0;font-size:14px}
-.src{font-size:12.5px;color:var(--ink2)}.src a{color:var(--blue)}
-.muted{color:var(--muted)}.good{color:var(--green)}.bad{color:var(--red)}
-/* месяц */
-.mswitch{display:flex;align-items:center;gap:8px;margin:10px 0 14px;flex-wrap:wrap}
-.mbtn{font-size:16px;border:1px solid var(--border);background:var(--surface2);border-radius:10px;padding:6px 12px;cursor:pointer}
-select{font-size:14px;padding:7px 10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);min-width:200px}
-.mcount{color:var(--muted);font-size:13px}
-.mhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
+.num{text-align:right;font-variant-numeric:tabular-nums} .mono{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.dim{color:var(--muted)} td.accent{color:var(--violet)} td.good{color:var(--good)} td.strong{font-weight:700}
+.badge{font-size:11px;padding:1px 7px;border-radius:20px;font-weight:700}
+.b1{background:rgba(57,135,229,.18);color:var(--blue)} .b2{background:rgba(217,89,38,.18);color:var(--orange)} .b3{background:rgba(12,163,12,.18);color:var(--green)}
+.debts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.debt{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.debt-h{display:flex;align-items:center;gap:9px} .ord{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);flex:0 0 auto}
+.dname{font-weight:600;font-size:14px;flex:1} .rate{font-size:12px;font-weight:700;padding:1px 8px;border-radius:20px}
+.rhi{background:rgba(208,59,59,.18);color:#e66767} .rmid{background:rgba(201,133,0,.18);color:var(--yellow)} .rlo{background:rgba(137,135,129,.18);color:var(--muted)}
+.debt-b{display:flex;justify-content:space-between;margin-top:7px;font-size:12.5px;color:var(--ink2)} .po{color:var(--aqua);font-weight:600}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.goal{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:13px 15px} .goal.done{border-color:rgba(12,163,12,.35)}
+.g-top{display:flex;align-items:center;gap:8px} .ge{font-size:18px} .gn{font-weight:600;font-size:13.5px}
+.gbar{height:6px;background:var(--surface);border-radius:6px;margin:9px 0 7px;overflow:hidden} .gfill{height:100%;background:linear-gradient(90deg,var(--aqua),var(--green))}
+.g-bot{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2)} .gd{color:var(--aqua);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-size:12.5px;color:var(--ink2)} .lg{display:flex;align-items:center;gap:6px} .sw{width:12px;height:12px;border-radius:3px}
+.recon .rcrow{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-bottom:1px solid var(--grid);font-size:14.5px}
+.recon .rcv{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.rc-plus .rcv{color:var(--aqua)} .rc-minus,.rc-minus .rcv{color:var(--ink2)}
+.rc-eq{background:var(--surface2);font-weight:600;border-radius:8px} .rc-res{background:rgba(12,163,12,.12);border-radius:8px;font-weight:700} .rc-res .rcv{color:var(--green);font-size:17px}
+.tbl-scroll{overflow-x:auto} .foot{color:var(--muted);font-size:12px;margin-top:24px;line-height:1.7}
+/* платёжка — дизайн-карточки */
+.mswitch{display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.mbtn{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--ink);font-size:17px;cursor:pointer;flex:0 0 auto;transition:background .15s}
+.mbtn:hover{background:var(--blue);border-color:var(--blue)}
+select#msel{flex:1;min-width:160px;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--ink);font-size:15px;font-weight:600}
+.mcount{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.rbtn{margin-left:auto;font-size:12px;padding:8px 12px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--ink2);cursor:pointer}
+.rbtn:hover{color:var(--ink)}
+.paid{color:var(--good);font-weight:600;font-size:12.5px}
+.month{display:none}
+.month.show{display:block}
+.mhead{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .mtitle{font-size:22px;font-weight:700;letter-spacing:-.4px}
-.note-strip{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--aqua);border-radius:10px;padding:9px 14px;font-size:14px;color:var(--ink2);margin:10px 0}
-.warn-strip{background:rgba(217,98,44,.08);border:1px solid rgba(217,98,44,.3);border-left:3px solid var(--orange);border-radius:10px;padding:9px 14px;font-size:14px;margin:10px 0}
-.mgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;align-items:start}
-@media(max-width:860px){.mgrid{grid-template-columns:minmax(0,1fr)}}
-.ptab{width:100%}
-.ptab td{padding:6px 4px;border-bottom:1px solid var(--grid)}
-.ptab tr.grp td{padding:12px 8px 6px;font-weight:700;font-size:12.5px;background:var(--tint);border-bottom:1px solid var(--border);border-radius:8px 8px 0 0}
+.mph{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
+.mph.p1{background:rgba(57,135,229,.16);color:var(--blue)} .mph.p2{background:rgba(217,89,38,.16);color:var(--orange)} .mph.p3{background:rgba(12,163,12,.16);color:var(--green)}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.hstat{position:relative;background:var(--surface2);border:1px solid var(--border2);box-shadow:0 8px 20px -12px var(--shadow);border-radius:14px;padding:14px 16px;overflow:hidden}
+.hstat::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--dot)}
+.hstat.h1{--dot:var(--pool1)} .hstat.h2{--dot:var(--pool2)} .hstat.h3{--dot:var(--muted);opacity:.85} .hstat.h4{--dot:var(--green)} .hstat.h5{--dot:var(--violet)} .hstat.h6{--dot:var(--yellow)} .hstat.h7{--dot:var(--blue)} .hstat.h8{--dot:var(--orange)}
+.hlab{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.hlab::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dot)}
+.hval{display:block;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:6px;letter-spacing:-.5px}
+.hnote{display:block;font-size:12.5px;color:var(--ink2);margin-top:3px;font-variant-numeric:tabular-nums}
+.poolgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.poolgrid.single{grid-template-columns:1fr;max-width:520px}
+.poolcard{background:var(--surface2);border:1px solid var(--border2);box-shadow:0 8px 20px -12px var(--shadow);border-radius:14px;padding:16px 18px 14px;border-top:3px solid var(--dot)}
+.poolcard.c1{--dot:var(--pool1)} .poolcard.c2{--dot:var(--pool2)}
+.pctitle{font-size:12px;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.pctitle .ptot{color:var(--ink);font-size:14px;font-weight:700;letter-spacing:0;text-transform:none}
+table.ptab{width:100%;border-collapse:collapse;font-size:13.5px}
+.ptab td{padding:6px 2px;border-bottom:1px solid var(--grid);transition:background .12s ease}
 .ptab tr.item:hover td{background:var(--tint2)}
-.ptab td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ptab .rt{font-size:11px;color:var(--muted);margin-left:6px}
-.ptab .tag{color:var(--green);font-weight:700;margin-left:6px}
-.ptab tr.rest td{font-weight:700;color:var(--green);border-bottom:none;padding-top:10px}
-.ptab input{margin-right:8px;vertical-align:middle}
-.ptab tr.done td .tl{text-decoration:line-through;color:var(--muted)}
-.chk-list{margin:0;padding:0;list-style:none}
-.chk-list li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--grid);font-size:13.5px}
-.chk-list li:last-child{border-bottom:none}
-.chk-list input{margin-top:3px}
-/* графики */
-.chartbox{position:relative}
-.chartbox svg{width:100%;height:auto;display:block;overflow:visible}
-.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:8px 10px;font-size:12.5px;box-shadow:0 10px 24px -10px rgba(0,0,0,.45);display:none;z-index:6;white-space:nowrap;font-variant-numeric:tabular-nums}
-.tip b{display:block;margin-bottom:3px}
-.tip div{display:flex;gap:14px;justify-content:space-between}
-.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--ink2);margin:0 0 6px}
-.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
-.rule{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--grid)}
-.rule:last-child{border-bottom:none}
-.rule .no{width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-.rule b{display:block;font-size:15px}.rule span{font-size:13.5px;color:var(--ink2)}
-footer{margin-top:40px;font-size:12.5px;color:var(--muted)}
-</style></head>
+.ptab tr.grp td{padding:14px 8px 6px;font-weight:700;color:var(--ink);font-size:12.5px;background:var(--tint);border-radius:8px 8px 0 0;border-bottom:1px solid var(--border)}
+.ptab tr.grp:first-child td{padding-top:6px}
+.ptab tr.item td{padding-left:8px;padding-right:8px}
+.ptab tr.rest td{border-bottom:none;border-top:none;font-weight:700;padding:12px 8px 2px;font-size:15px}
+.ptab tr.rest.good td{color:var(--good)}
+.ptab .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ptab .num.good{color:var(--good)}
+.ptab .tl{font-size:13.5px}
+.ptab .rt{color:var(--muted);font-size:10.5px;margin-left:5px;background:var(--surface2);padding:1px 5px;border-radius:6px}
+.ptab tr.item td .rt{background:transparent;padding:0}
+.ptab .tag{color:var(--good);font-weight:700;margin-left:6px}
+.chk{width:15px;height:15px;margin:0 9px 0 0;vertical-align:-3px;accent-color:var(--good);cursor:pointer}
+.cbsp{display:inline-block;width:24px}
+tr.done .tl{text-decoration:line-through;color:var(--muted)}
+.p3row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:11px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;border-left:3px solid var(--pool3);font-size:13.5px;color:var(--ink2)}
+.p3row .num{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.mfoot{display:flex;align-items:center;gap:10px;margin-top:16px}
+.bar{flex:1;height:6px;background:var(--surface2);border-radius:6px;overflow:hidden}
+.fill{display:block;height:100%;background:linear-gradient(90deg,var(--pool1),var(--good));border-radius:6px;transition:width 1s cubic-bezier(.22,.61,.36,1)}
+.pct{color:var(--good);font-weight:600;font-size:12px}
+
+/* тег-лайн наставника */
+.tagline{font-size:14.5px;color:var(--ink2);margin-bottom:16px;padding:10px 14px;background:var(--tint);border-radius:10px;border-left:3px solid var(--aqua)}
+
+/* дорожная карта пути */
+.journey{background:var(--surface2);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px 18px;margin-bottom:20px;box-shadow:0 8px 20px -12px rgba(0,0,0,.5)}
+.journey-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.jt-lab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.jt-pct{font-size:20px;font-weight:800;color:var(--good);font-variant-numeric:tabular-nums;transition:color .3s}
+.rm-track{position:relative;display:flex;align-items:center;gap:0;height:34px}
+.rm-line{position:absolute;left:9px;right:9px;top:50%;height:3px;background:var(--grid);border-radius:3px;transform:translateY(-50%)}
+.rm-fill{position:absolute;left:9px;top:50%;height:3px;background:linear-gradient(90deg,var(--pool1),var(--good));border-radius:3px;transform:translateY(-50%);transition:width .8s cubic-bezier(.22,.61,.36,1)}
+.rm-dot{position:relative;flex:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.rm-dot i{width:9px;height:9px;border-radius:50%;background:var(--grid);border:2px solid var(--bg);transition:transform .2s,background .2s,box-shadow .2s;position:relative;z-index:1}
+.rm-dot.p1 i{background:var(--blue)} .rm-dot.p2 i{background:var(--orange)} .rm-dot.p3 i{background:var(--good)}
+.rm-dot.done i{background:var(--good)}
+.rm-dot:hover i{transform:scale(1.4)}
+.rm-dot.cur i{transform:scale(1.9);box-shadow:0 0 0 4px rgba(12,163,12,.22)}
+.rm-mile{position:absolute;top:-15px;font-size:11px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.rm-tip{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:11px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;color:var(--ink2)}
+.rm-dot:hover .rm-tip{opacity:1}
+
+/* анимации появления */
+@keyframes monthIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.month.show{animation:monthIn .35s cubic-bezier(.22,.61,.36,1)}
+.poolcard,.hstat{transition:transform .18s ease,box-shadow .18s ease}
+.poolcard:hover,.hstat:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(0,0,0,.6)}
+.chk{transition:transform .12s ease} .chk:active{transform:scale(1.15)}
+
+@media(max-width:820px){.kpis,.phases,.goals,.debts{grid-template-columns:1fr 1fr} .poolgrid{grid-template-columns:1fr} .hero{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.kpis,.phases,.goals,.debts{grid-template-columns:1fr} .hero{grid-template-columns:1fr} .rm-track{overflow-x:auto}}
+.poolgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:820px){.poolgrid{grid-template-columns:minmax(0,1fr)}}
+.poolgrid>*{min-width:0}
+.svcol{display:flex;flex-direction:column;gap:12px}
+.svbox{padding:12px 14px 8px}
+.svh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px}
+.svt{font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.svt i{display:inline-block;width:8px;height:8px;border-radius:50%}
+.svv{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.svv small{font-weight:500;color:var(--muted);margin-left:4px}
+.svc{position:relative}
+.svcap{font-size:11px;color:var(--muted);margin:0 0 2px}
+.svc svg{width:100%;height:auto;display:block;overflow:visible}
+.svp,.svl{transition:opacity .3s ease}.svl{pointer-events:none;font-variant-numeric:tabular-nums}
+.sv-tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:7px 10px;font-size:12.5px;box-shadow:0 10px 24px -10px rgba(0,0,0,.45);display:none;z-index:6;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sv-tip b{display:block;margin-bottom:2px;font-size:12.5px}
+.sv-tip small{color:var(--muted);margin-left:5px}
+
+</style>
+</head>
 <body><div class="wrap">
-<h1>Аудит финансов и план выхода из долгов</h1>
-<p class="sub">Независимый расчёт с нуля · ноябрь 2026 → декабрь 2027 · сформирован 13.10.2026 · отдельный отчёт «для сравнения» с основным сайтом</p>
-<div class="nav">
- <a href="#verdict">Вердикт</a><a href="#audit">1. Аудит</a><a href="#research">2. Что изучено</a><a href="#rules">3. Правила</a>
- <a href="#method">4. Метод гашения</a><a href="#plan">5. План по месяцам</a><a href="#charts">6. Графики</a><a href="#firewall">7. Защита от срыва</a>
- <a href="#stress">8. Стресс-тесты</a><a href="#compare">9. Сравнение</a><a href="#notdone">10. Что отвергнуто</a><a href="#assume">11. Допущения</a><a href="#sources">Источники</a>
+<h1>Мой выход из долгов · вариант «Аудит»</h1>
+<p class="sub">Андрей · НОЯ 2026 → ДЕК 2027 (14 мес) · доход <b style="color:var(--ink)">$4 500/мес</b> (Betwinner) · курс 3.0 · независимый расчёт для сравнения с основным отчётом</p>
+
+<div class="hero-note">Стас закрыт к концу <b>января 2027</b>, все кредиты — к концу <b>мая 2027</b>. Что и когда откладываем: <b>личные накопления</b> — страховой фонд на евро-карте (первый взнос — остаток после Стаса в <b>январе 2027</b>, затем 300 BYN в месяц, пока идут кредиты; полностью 13 800 BYN = 6 месяцев жизни к концу <b>июня 2027</b>); затем отдельный счёт на <b>путешествие</b> ($3 500 к концу <b>июля 2027</b>); с <b>июля 2027</b> все свободные деньги делятся: <b>квартира в Речице 55% (цель $16 000)</b> / <b>свадьба 25% (цель $16 000)</b> / <b>личные накопления 20%</b>. До июля 2027 все свободные деньги работают на долги — копилки почти пустые, это сознательно.</div>
+
+<div class="journey">
+  <div class="journey-top"><span class="jt-lab">Твой путь к свободе</span><span class="jt-pct" id="jPct">0%</span></div>
+  <div class="rm-track" id="rmTrack"></div>
 </div>
-
-<div id="verdict"></div>
-<div class="kpis" id="kpis"></div>
-
-<h2 id="audit">1. Аудит: где ты сейчас</h2>
-<p class="lead">Стартовые цифры — на 1 ноября 2026 (после октябрьских платежей). Остатки кредитов взяты из твоей модели, минималки — из твоей октябрьской таблицы (всего 2 400 BYN).</p>
-<div class="card scroll" id="debtTable"></div>
-<div class="card"><h3>Что показывает аудит</h3><ol class="clean" id="findings"></ol></div>
-
-<h2 id="research">2. Что изучено и какие выводы сделаны</h2>
-<p class="lead">Каждый вывод ниже привязан к источнику. Там, где источник вторичный (пересказ исследования, а не сама статья), это отмечено. Видео и подкасты я могу искать только по названиям и описаниям — содержимое роликов не смотрел, поэтому на них решения не строю.</p>
-<div class="grid2">
- <div class="card"><h3>Баффет: сначала долг под высокий процент</h3>
-  <p class="src">Пересказ выступления на собрании Berkshire (2021): долг под ~18% нужно гасить в первую очередь — это надёжнее любой инвестиционной идеи. Вывод: все свободные деньги идут в долги под 17,9–25%, инвестиции и «красивые» цели — после. <a href="https://benzinga.com/news/25/02/43423897/buffett-advises-against-using-credit-cards-as-a-source-of-funds-paying-it-off-is-gonna-be-way-better-than-an">Benzinga</a> · <a href="https://fool.com/the-ascent/credit-cards/articles/should-you-pay-off-your-credit-card-balance-heres-what-warren-buffett-think/">Motley Fool</a>. Фразу «не копи то, что осталось после трат» я в найденных материалах не подтвердил, поэтому её не цитирую.</p></div>
- <div class="card"><h3>Рэмси: стартовый фонд → долги → полный фонд</h3>
-  <p class="src">Порядок: небольшой стартовый резерв ($1 000 в оригинале), потом гашение долгов, потом 3–6 месяцев расходов. Источники вторичные (пересказы). В плане: пока идёт Стас, фонда нет; после его закрытия фонд доводится до 1 месяца минималок, полный (6 месяцев жизни) — после кредитов. <a href="https://www.moneycrashers.com/dave-ramsey-baby-steps-pay-off-debt/">Money Crashers</a></p></div>
- <div class="card"><h3>Лавина против снежного кома</h3>
-  <p class="src">LendingTree (2023, четыре модельных набора долгов): разница в общей переплате от $0 до $1 292. Kellogg (2012, по пересказам, оригинал не найден): закрытие счёта лучше предсказывало успех, чем размер ставки. Итог: метод важен меньше дисциплины и скорости. На твоих долгах разница между методами — <span id="spread"></span> (раздел 4). <a href="https://www.lendingtree.com/debt-consolidation/debt-avalanche-snowball-study/">LendingTree</a> · <a href="https://en.wikipedia.org/wiki/Debt_snowball_method">Wikipedia</a></p></div>
- <div class="card"><h3>Индекс денежного потока (CFI)</h3>
-  <p class="src">Остаток ÷ минималка: первым гасится долг с меньшим значением — это быстрее всего снимает ежемесячную нагрузку. Минус: игнорирует ставку, а у установленных (аннуитетных) кредитов допплата не уменьшает платёж. На твоём наборе CFI оказался одним из самых дорогих по процентам (раздел 4). <a href="https://undebt.it/blog/wp-json/wp/v2/posts/1747">undebt.it</a></p></div>
- <div class="card"><h3>Деньги и азарт: что реально работает</h3>
-  <p class="src">Обзор 31 исследования: самые изученные стратегии — самоисключение и ограничение денег/времени; контроль наличных связан с меньшей тяжестью игры (small/observational). Группы взаимопомощи (GA) советуют: список всех долгов, план погашения, передать контроль над деньгами доверенному человеку, открыто говорить о долгах. «Мораторий 60–90 дней у кредиторов» из их методички я <b>не использую</b>: ты поставил жёсткое условие — минималки платятся всегда. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6489359/">PMC6489359</a> · <a href="https://www.mdproblemgambling.com/wp-content/uploads/2022/01/12.17.21-Presentation-Financial-Woes.pdf">GA/Maryland</a></p></div>
- <div class="card"><h3>Беларусь: что есть у банков</h3>
-  <p class="src">С 11.03.2026 действует Указ №226; по сообщениям, банки не пропускают платежи на зарубежные игорные сайты. Беларусбанк прямо называет MCC 7995 как категорию, которую можно ограничивать. Официальной процедуры самоисключения я не нашёл — уточни в банке и Минфине. Блокировка по карте не закрывает кошельки, крипту, переводы и наличные. <a href="https://myfin.by/article/banki/v-belarusi-opat-zagovorili-o-zaprete-perevodov-v-polzu-zarubeznykh-onlajn-kazino-37820">myfin.by</a> · <a href="https://belarusbank.by/docs/fizicheskim_licam/cards/318658/">Беларусбанк</a></p></div>
- <div class="card"><h3>Ставки в Беларуси и рефинансирование</h3>
-  <p class="src">Ставка рефинансирования с 01.06.2026 — 9,25%. Средняя ставка новых рублёвых кредитов физлицам в мае ≈ 11,4% (в апреле 14,8%), средняя по новым срочным вкладам в BYN ≈ 11,2%, отдельные банки — до 13,5% на 13 месяцев, вклады в долларах 1–2%. Твои 17,9–25% дороже рынка. Верхняя граница выгоды от рефинансирования — <span id="refiSave"></span> (раздел 10). <a href="https://pravo.by/novosti/obshchestvenno-politicheskie-i-v-oblasti-prava/2026/maj/93529/">pravo.by</a> · <a href="https://myfin.by/article/banki/kakimi-byli-srednie-stavki-po-rublevym-kreditam-i-vkladam-v-mae-dannye-nacbanka-46276">Нацбанк через myfin.by</a></p></div>
- <div class="card"><h3>Автоматизм и размер резерва</h3>
-  <p class="src">Save More Tomorrow (Thaler, Benartzi): автоматические взносы, решаемые заранее. Минус: оценка причинности в обзоре CLEAR — низкая, поэтому берём как принцип, не как гарантию. Резерв: старт $1–2 тыс., затем 3–6 месяцев расходов; при одном доходе — 6–9. В плане: 1 месяц минималок к февралю, 6 месяцев жизни к июню. <a href="https://www.chicagobooth.edu/review/save-more-tomorrow">Chicago Booth</a> · <a href="https://www.fool.com/the-ascent/banks/articles/heres-how-much-5-financial-experts-say-you-should-have-in-your-emergency-fund">Motley Fool</a></p></div>
- <div class="card"><h3>Валюта</h3>
-  <p class="src">ЕАБР: среднегодовой курс ≈ 3,0 BYN/$ в 2026 и плавное ослабление к ≈ 3,3 к 2028 (более старые прогнозы — 3,7–4,0, они устарели). Зарплата привязана к $ (4 500 → 13 500 BYN), Стас — в $: он хеджирован доходом. Плановый курс 3,0, платежи Стасу по 3,1. <a href="https://myfin.by/article/currency/kakim-budet-kurs-dollara-v-belarusi-v-2026-godu-prognoz-eabr-46298">myfin.by</a></p></div>
+<div class="mswitch">
+  <button class="mbtn" id="prev">‹</button>
+  <select id="msel"><option value="0">Ноябрь 2026</option>
+<option value="1">Декабрь 2026</option>
+<option value="2">Январь 2027</option>
+<option value="3">Февраль 2027</option>
+<option value="4">Март 2027</option>
+<option value="5">Апрель 2027</option>
+<option value="6">Май 2027</option>
+<option value="7">Июнь 2027</option>
+<option value="8">Июль 2027</option>
+<option value="9">Август 2027</option>
+<option value="10">Сентябрь 2027</option>
+<option value="11">Октябрь 2027</option>
+<option value="12">Ноябрь 2027</option>
+<option value="13">Декабрь 2027</option></select>
+  <button class="mbtn" id="next">›</button>
+  <span class="mcount" id="mcount"></span>
+  <button class="rbtn" id="reset">Сбросить галочки</button>
 </div>
-
-<h2 id="rules">3. Правила (без исключений)</h2>
-<div class="card" id="rulesBox"></div>
-
-<h2 id="method">4. Метод гашения: выбор по расчёту</h2>
-<p class="lead" id="methodLead"></p>
-<div class="card scroll" id="stratTable"></div>
-<div class="note-strip" id="stratNote"></div>
-
-<h2 id="plan">5. План по месяцам</h2>
-<div class="mswitch"><button class="mbtn" id="prev">‹</button><select id="msel"></select><button class="mbtn" id="next">›</button><span class="mcount" id="mcount"></span></div>
-<div id="month"></div>
-
-<h2 id="charts">6. Траектории</h2>
-<div class="grid2">
- <div class="card"><h3>Долги: кредиты + Стас, $</h3><div class="leg" id="leg1"></div><div class="chartbox" id="ch1"></div></div>
- <div class="card"><h3>Минималки и проценты в месяц, BYN</h3><div class="leg" id="leg2"></div><div class="chartbox" id="ch2"></div></div>
-</div>
-<div class="card"><h3>Копилки, BYN</h3><div class="leg" id="leg3"></div><div class="chartbox" id="ch3"></div></div>
-
-<h2 id="firewall">7. Защита от срыва и «день зарплаты»</h2>
-<div class="grid2">
- <div class="card"><h3>День зарплаты: первый час</h3>
-  <ol class="clean">
-   <li>Зарплата пришла → сразу, до любых трат: <b>автоплатёж/ручной платёж всех минималок</b> (<span id="nDebts"></span> платежей в начале, потом меньше).</li>
-   <li>Купить доллары и перевести Стасу <b>в тот же день</b> (ноябрь–январь): деньги, которых уже нет на карте, нельзя проиграть.</li>
-   <li>Допплата в текущую цель блица (в плане по месяцам указано, куда).</li>
-   <li>Автоперевод в фонд безопасности/копилки на счёт <b>в другом банке без карты</b>.</li>
-   <li>Карманные: <span id="pocketTxt"></span> на <b>отдельную карту</b> с блокировкой MCC 7995 и лимитом.</li>
-   <li>Основная карта после этих шагов — почти пустая. Остаток быта — только на коммуналку и еду.</li>
-  </ol></div>
- <div class="card"><h3>Архитектура счетов</h3>
-  <div class="scroll"><table><tr><th>Счёт</th><th>Что лежит</th><th>Доступ</th></tr>
-  <tr><td>Приёмный (зарплата)</td><td>только в день зарплаты</td><td>пустеет за час</td></tr>
-  <tr><td>Быт</td><td>коммуналка + еда</td><td>лимит, без онлайн-платежей за границу</td></tr>
-  <tr><td>Карманные</td><td id="pocketWeek"></td><td>MCC 7995 заблокирован</td></tr>
-  <tr><td>Фонд безопасности/копилки</td><td>всё накопленное</td><td>другой банк, без карты, вывод — через 24 часа</td></tr>
-  <tr><td>Долги</td><td>автоплатежи</td><td>по графику</td></tr></table></div>
-  <p class="src" style="margin-top:8px">Блокировка MCC работает только по картам: кошельки, крипта и P2P остаются дырой — их нужно закрыть отдельно.</p></div>
- <div class="card"><h3>Красные линии</h3>
-  <ul class="clean"><li><b>Ни одного нового долга:</b> кредит, рассрочка, овердрафт, заём у знакомых.</li>
-   <li><b>Закрыл — закрыл физически:</b> лимит овердрафта и кредитных карт в ноль, карту сдать. Это убирает топливо для срыва (и совпадает с выводом Kellogg про закрытые счета).</li>
-   <li><b>Разовые деньги</b> (подработка, возврат, премия): 70% — в текущую цель плана, 30% можно потратить. Октябрьская добавка к зарплате (14 200 вместо 12 270 BYN) ушла в отдых целиком — такой сценарий дальше не повторяем.</li>
-   <li>Раз в неделю 10 минут: показать доверенному человеку (Маша или друг) остаток карманных и операции. Это прозрачность, а не контроль.</li></ul></div>
- <div class="card"><h3>Если срыв всё-таки случился</h3>
-  <ol class="clean"><li>Не «отыгрываться» и не занимать — стоп в тот же день.</li>
-   <li>Минималки и Стас <b>не трогаем никогда</b>: потеря покрывается из карманных/быта следующих месяцев и сдвигает цели, а не платежи.</li>
-   <li>Сообщить доверенному человеку в течение 24 часов, заблокировать карманную карту на 7 дней.</li>
-   <li>Прислать мне цифры — пересчитаю план (сколько месяцев это стоит, см. раздел 8).</li>
-   <li>Срыв — повод для специалиста (психолог-аддиктолог), а не для стыда; видео этого не заменяют.</li></ol></div>
-</div>
-
-<h2 id="stress">8. Стресс-тесты</h2>
-<p class="lead">Что будет с планом, если срыв размера сентябрьского (3 110 BYN) случится в разные месяцы. Главный вывод: <b>ноябрь–декабрь — критическое окно</b>: срыв в это время ломает дедлайн Стаса.</p>
-<div class="card scroll" id="stressTable"></div>
-
-<h2 id="compare">9. Сравнение с текущим планом на сайте</h2>
-<div class="card scroll" id="compareTable"></div>
-<div class="grid2"><div class="card"><h3>Что ты выигрываешь</h3><ul class="clean" id="wins"></ul></div><div class="card"><h3>Чем платишь</h3><ul class="clean" id="costs"></ul></div></div>
-
-<h2 id="notdone">10. Что я рассмотрел и отверг</h2>
-<div class="card"><ul class="clean">
- <li id="oRefi"></li>
- <li><b>Заплатить Стасу позже, а деньги пустить в кредиты.</b> Дедлайн 31.01 тогда повисает на одном зарплатном дне, и любой срыв (раздел 8) переносит его. Отвергнуто: цена срыва выше выгоды по процентам.</li>
- <li><b>Мораторий/реструктуризация у банков.</b> Нарушает условие «минималки всегда».</li>
- <li><b>Гасить 0%-рассрочку Альфа (Андрей) досрочно.</b> Финансового смысла нет (0%): она закрывается сама по минималкам и как возобновляемая линия не продлевается.</li>
- <li><b>Копить в BYN-вкладе, пока есть долги под 17,9–25%.</b> Вклад 11–13,5% проигрывает долгу; после долгов — рассмотреть (в цифры не включено).</li>
- <li id="oAval"></li></ul></div>
-
-<h2 id="assume">11. Допущения (проверь)</h2>
-<div class="card"><ol class="clean" id="assumeList"></ol></div>
-
-<h2 id="sources">Источники</h2>
-<div class="card src"><ul class="clean">
- <li><a href="https://benzinga.com/news/25/02/43423897/buffett-advises-against-using-credit-cards-as-a-source-of-funds-paying-it-off-is-gonna-be-way-better-than-an">Benzinga — Баффет про долг под 18%</a></li>
- <li><a href="https://fool.com/the-ascent/credit-cards/articles/should-you-pay-off-your-credit-card-balance-heres-what-warren-buffett-think/">Motley Fool — Баффет и погашение карт</a></li>
- <li><a href="https://www.lendingtree.com/debt-consolidation/debt-avalanche-snowball-study/">LendingTree — лавина против снежного кома</a></li>
- <li><a href="https://en.wikipedia.org/wiki/Debt_snowball_method">Wikipedia — Debt snowball method</a></li>
- <li><a href="https://undebt.it/blog/wp-json/wp/v2/posts/1747">undebt.it — Cash Flow Index</a></li>
- <li><a href="https://www.moneycrashers.com/dave-ramsey-baby-steps-pay-off-debt/">Money Crashers — Baby Steps</a></li>
- <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6489359/">PMC — self-management strategies for problem gambling (scoping review)</a></li>
- <li><a href="https://www.mdproblemgambling.com/wp-content/uploads/2022/01/12.17.21-Presentation-Financial-Woes.pdf">Maryland Council on Problem Gambling — финансовая презентация (GA pressure relief)</a></li>
- <li><a href="https://myfin.by/article/banki/v-belarusi-opat-zagovorili-o-zaprete-perevodov-v-polzu-zarubeznykh-onlajn-kazino-37820">myfin.by — запрет переводов зарубежным онлайн-казино</a></li>
- <li><a href="https://belarusbank.by/docs/fizicheskim_licam/cards/318658/">Беларусбанк — ограничение операций по MCC</a></li>
- <li><a href="https://pravo.by/novosti/obshchestvenno-politicheskie-i-v-oblasti-prava/2026/maj/93529/">pravo.by — ставка рефинансирования</a></li>
- <li><a href="https://myfin.by/article/banki/kakimi-byli-srednie-stavki-po-rublevym-kreditam-i-vkladam-v-mae-dannye-nacbanka-46276">myfin.by — средние ставки (данные Нацбанка, май 2026)</a></li>
- <li><a href="https://www.chicagobooth.edu/review/save-more-tomorrow">Chicago Booth — Save More Tomorrow</a></li>
- <li><a href="https://www.fool.com/the-ascent/banks/articles/heres-how-much-5-financial-experts-say-you-should-have-in-your-emergency-fund">Motley Fool — размер резерва</a></li>
- <li><a href="https://myfin.by/article/currency/kakim-budet-kurs-dollara-v-belarusi-v-2026-godu-prognoz-eabr-46298">myfin.by — прогноз ЕАБР по курсу</a></li>
- <li><a href="https://myfin.by/info/srednyaya-zarplata-v-belarusi">myfin.by — средняя зарплата в Беларуси (Белстат)</a></li></ul></div>
-<footer>Расчёт: audit/plan_sim.py → audit/build_audit.py. Это независимый вариант плана; основной сайт не изменён.</footer>
+<section class="month" data-idx="0">
+      <div class="mhead"><div class="mtitle">Ноябрь 2026</div><div class="mph p1">Фаза 1 · Стас</div></div>
+      <div class="tagline">🌊 Стас в приоритете: до конца января ему уходит всё свободное, поэтому в копилки сейчас ничего не откладывается — это сознательно, дедлайн важнее. Минималки по всем кредитам (2 400 BYN) платятся в день зарплаты. После платежа Стасу остаётся $5 153.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="20016" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="9200" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 · €0</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 · €0 · в т.ч. страховой фонд $0</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 13</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Рассрочка Альфа (Андрей)"><span class="tl">Рассрочка Альфа (Андрей)</span><span class="rt">0%</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Карта 100 дней Маши"><span class="tl">Карта 100 дней Маши</span><span class="rt">18%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">110 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Красная Карта Маши"><span class="tl">Красная Карта Маши</span><span class="rt">18%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">40 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">3 400 BYN ($1 133)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|sh|Маше на операцию по глазам"><span class="tl">Маше на операцию по глазам</span></td><td class="num">1 500 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Долги</td><td class="num">3 400 BYN ($1 133)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-11|sh|Долг Стасу 1 097$ по графику на счет в бнб банке"><span class="tl">Долг Стасу 1 097$ по графику на счет в бнб банке</span></td><td class="num">3 400 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="6" style="width:0%"></span></span><span class="pct">6%</span></div>
+    </section>
+<section class="month" data-idx="1">
+      <div class="mhead"><div class="mtitle">Декабрь 2026</div><div class="mph p1">Фаза 1 · Стас</div></div>
+      <div class="tagline">🌊 Стас в приоритете: до конца января ему уходит всё свободное, поэтому в копилки сейчас ничего не откладывается — это сознательно, дедлайн важнее. Минималки по всем кредитам (2 400 BYN) платятся в день зарплаты. После платежа Стасу остаётся $2 411.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="16708" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 · €0</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 · €0 · в т.ч. страховой фонд $0</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 13</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Рассрочка Альфа (Андрей)"><span class="tl">Рассрочка Альфа (Андрей)</span><span class="rt">0%</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Карта 100 дней Маши"><span class="tl">Карта 100 дней Маши</span><span class="rt">18%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">110 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Красная Карта Маши"><span class="tl">Красная Карта Маши</span><span class="rt">18%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">40 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">2 600 BYN ($867)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|sh|Новый год: подарки и стол"><span class="tl">Новый год: подарки и стол</span></td><td class="num">700 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Долги</td><td class="num">8 500 BYN ($2 833)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2026-12|sh|Долг Стасу 2 742$ по графику на счет в бнб банке"><span class="tl">Долг Стасу 2 742$ по графику на счет в бнб банке</span></td><td class="num">8 500 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="19" style="width:0%"></span></span><span class="pct">19%</span></div>
+    </section>
+<section class="month" data-idx="2">
+      <div class="mhead"><div class="mtitle">Январь 2027</div><div class="mph p1">Фаза 1 · Стас</div></div>
+      <div class="tagline">🤝 Закрываем долг Стасу — дедлайн выполнен. Остаток месяца (1 925 BYN) — первый взнос в личные накопления (страховой фонд).</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="13790" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="1925" data-unit="byn">0 BYN</span><span class="hnote">$642 · €550</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="1925" data-unit="byn">0 BYN</span><span class="hnote">$642 · €550 · в т.ч. страховой фонд $642</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 13</td><td class="num">2 200 BYN ($733)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Карта 100 дней Маши"><span class="tl">Карта 100 дней Маши</span><span class="rt">18%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">110 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Красная Карта Маши"><span class="tl">Красная Карта Маши</span><span class="rt">18%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Рассрочка Альфа (Андрей)"><span class="tl">Рассрочка Альфа (Андрей)</span><span class="rt">0%</span></td><td class="num">100 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">40 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">1 900 BYN ($633)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Долги</td><td class="num">7 475 BYN ($2 492)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|sh|Долг Стасу 2 411$ по графику на счет в бнб банке"><span class="tl">Долг Стасу 2 411$ по графику на счет в бнб банке</span></td><td class="num">7 475 BYN<span class="tag">✓</span></td></tr><tr class="grp"><td>Резерв</td><td class="num">1 925 BYN ($642)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-01|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">1 925 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="32" style="width:0%"></span></span><span class="pct">32%</span></div>
+    </section>
+<section class="month" data-idx="3">
+      <div class="mhead"><div class="mtitle">Февраль 2027</div><div class="mph p2">Фаза 2 · Кредиты + Цели</div></div>
+      <div class="tagline">🔥 Стаса нет — всё свободное идёт в кредиты (сначала овердрафт, карты и рассрочки, потом остальные). В личные накопления (страховой фонд) откладывается 300 BYN в месяц.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="10632" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="2700" data-unit="byn">0 BYN</span><span class="hnote">$900 · €771</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="2700" data-unit="byn">0 BYN</span><span class="hnote">$900 · €771 · в т.ч. страховой фонд $900</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 12</td><td class="num">10 130 BYN ($3 377)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">8 180 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Карта 100 дней Маши"><span class="tl">Карта 100 дней Маши</span><span class="rt">18%</span></td><td class="num">150 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">110 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Красная Карта Маши"><span class="tl">Красная Карта Маши</span><span class="rt">18%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">40 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">2 000 BYN ($667)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Долги</td><td class="num">595 BYN ($198)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|sh|Долг Маме (на карту евро 170)"><span class="tl">Долг Маме (на карту евро 170)</span></td><td class="num">595 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">775 BYN ($258)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-02|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">775 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="45" style="width:0%"></span></span><span class="pct">45%</span></div>
+    </section>
+<section class="month" data-idx="4">
+      <div class="mhead"><div class="mtitle">Март 2027</div><div class="mph p2">Фаза 2 · Кредиты + Цели</div></div>
+      <div class="tagline">🔥 Стаса нет — всё свободное идёт в кредиты (сначала овердрафт, карты и рассрочки, потом остальные). В личные накопления (страховой фонд) откладывается 300 BYN в месяц. Закрываются: Овердрафт БНБ, Карта 100 дней Личная, Красная Карта Маши, Карта 100 дней Маши, Рассрочка Альфа (Маша).</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="7066" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="3000" data-unit="byn">0 BYN</span><span class="hnote">$1 000 · €857</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="3000" data-unit="byn">0 BYN</span><span class="hnote">$1 000 · €857 · в т.ч. страховой фонд $1 000</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 12</td><td class="num">11 200 BYN ($3 733)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Карта 100 дней Личная"><span class="tl">Карта 100 дней Личная</span><span class="rt">18%</span></td><td class="num">2 681 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Карта 100 дней Маши"><span class="tl">Карта 100 дней Маши</span><span class="rt">18%</span></td><td class="num">2 429 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">2 274 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Красная Карта Маши"><span class="tl">Красная Карта Маши</span><span class="rt">18%</span></td><td class="num">1 394 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Овердрафт БНБ"><span class="tl">Овердрафт БНБ</span><span class="rt">20%</span></td><td class="num">1 152 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">100 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Рассрочка Альфа (Маша)"><span class="tl">Рассрочка Альфа (Маша)</span><span class="rt">17.9%</span></td><td class="num">80 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">40 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">2 000 BYN ($667)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">300 BYN ($100)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-03|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">300 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="59" style="width:0%"></span></span><span class="pct">59%</span></div>
+    </section>
+<section class="month" data-idx="5">
+      <div class="mhead"><div class="mtitle">Апрель 2027</div><div class="mph p2">Фаза 2 · Кредиты + Цели</div></div>
+      <div class="tagline">🔥 Стаса нет — всё свободное идёт в кредиты (сначала овердрафт, карты и рассрочки, потом остальные). В личные накопления (страховой фонд) откладывается 300 BYN в месяц. Закрываются: БНБ Кредит, Красная Карта Личная, Красная Карта Мамы.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="3446" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="3300" data-unit="byn">0 BYN</span><span class="hnote">$1 100 · €943</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="3300" data-unit="byn">0 BYN</span><span class="hnote">$1 100 · €943 · в т.ч. страховой фонд $1 100</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 7</td><td class="num">11 200 BYN ($3 733)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|Красная Карта Личная"><span class="tl">Красная Карта Личная</span><span class="rt">18%</span></td><td class="num">4 227 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|БНБ Кредит"><span class="tl">БНБ Кредит</span><span class="rt">25%</span></td><td class="num">2 487 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|Красная Карта Мамы"><span class="tl">Красная Карта Мамы</span><span class="rt">18%</span></td><td class="num">1 894 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">1 742 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">350 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">250 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">250 BYN</td></tr><tr class="grp"><td>Быт</td><td class="num">2 000 BYN ($667)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">300 BYN ($100)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-04|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">300 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="74" style="width:0%"></span></span><span class="pct">74%</span></div>
+    </section>
+<section class="month" data-idx="6">
+      <div class="mhead"><div class="mtitle">Май 2027</div><div class="mph p2">Фаза 2 · Кредиты + Цели</div></div>
+      <div class="tagline">🔥 Последние кредиты закрываются в этом месяце! Остаток после них — в личные накопления (страховой фонд). Закрываются: Креди Сбер Банк Маши, Мой кредит на технику, Мой кредит на ПК, Кредит наличных Маши.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="4305" data-unit="byn">0 BYN</span><span class="hnote">$1 435 · €1 230</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="4305" data-unit="byn">0 BYN</span><span class="hnote">$1 435 · €1 230 · в т.ч. страховой фонд $1 435</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Кредиты · 4</td><td class="num">10 495 BYN ($3 498)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|cr|Мой кредит на ПК"><span class="tl">Мой кредит на ПК</span><span class="rt">18.5%</span></td><td class="num">3 603 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|cr|Мой кредит на технику"><span class="tl">Мой кредит на технику</span><span class="rt">18.5%</span></td><td class="num">3 531 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|cr|Кредит наличных Маши"><span class="tl">Кредит наличных Маши</span><span class="rt">18%</span></td><td class="num">3 078 BYN<span class="tag">✓</span></td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|cr|Креди Сбер Банк Маши"><span class="tl">Креди Сбер Банк Маши</span><span class="rt">20%</span></td><td class="num">283 BYN<span class="tag">✓</span></td></tr><tr class="grp"><td>Быт</td><td class="num">2 000 BYN ($667)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">400 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">1 005 BYN ($335)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-05|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">1 005 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="88" style="width:0%"></span></span><span class="pct">88%</span></div>
+    </section>
+<section class="month" data-idx="7">
+      <div class="mhead"><div class="mtitle">Июнь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🛡 Долгов нет. Сначала доводим страховой фонд до 13 800 BYN (6 месяцев жизни), потом копим на путешествие ($3 500). Квартира и свадьба стартуют, когда оба этих счёта набраны.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="15405" data-unit="byn">0 BYN</span><span class="hnote">$5 135 · €4 401</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="0" data-unit="byn">0 BYN</span><span class="hnote">$0</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="1605" data-unit="byn">0 BYN</span><span class="hnote">$535 из $3 500</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="13800" data-unit="byn">0 BYN</span><span class="hnote">$4 600 · €3 943 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|sh|travel"><span class="tl">Счет Путешествие</span></td><td class="num">1 605 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-06|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">9 495 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
+<section class="month" data-idx="8">
+      <div class="mhead"><div class="mtitle">Июль 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">✈️ Путешествие набрано ($3 500) — можно бронировать. Остаток месяца уже делится: квартира 55% / свадьба 25% / личные накопления 20%.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="26505" data-unit="byn">0 BYN</span><span class="hnote">$8 835 · €7 573</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="551" data-unit="byn">0 BYN</span><span class="hnote">$184</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="1212" data-unit="byn">0 BYN</span><span class="hnote">$404</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="10500" data-unit="byn">0 BYN</span><span class="hnote">$3 500 из $3 500 ✓</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="14241" data-unit="byn">0 BYN</span><span class="hnote">$4 747 · €4 069 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|wedding"><span class="tl">Счет Свадьба</span></td><td class="num">551 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|apartment"><span class="tl">Счет Квартира</span></td><td class="num">1 212 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|travel"><span class="tl">Счет Путешествие</span></td><td class="num">8 895 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-07|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">442 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
+<section class="month" data-idx="9">
+      <div class="mhead"><div class="mtitle">Август 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет, фонд и путешествие набраны: свободные 11 100 BYN в месяц делятся — квартира 55% / свадьба 25% / личные накопления 20%.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="37605" data-unit="byn">0 BYN</span><span class="hnote">$12 535 · €10 744</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="3326" data-unit="byn">0 BYN</span><span class="hnote">$1 109</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="7317" data-unit="byn">0 BYN</span><span class="hnote">$2 439</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="10500" data-unit="byn">0 BYN</span><span class="hnote">$3 500 из $3 500 ✓</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="16461" data-unit="byn">0 BYN</span><span class="hnote">$5 487 · €4 703 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|wedding"><span class="tl">Счет Свадьба</span></td><td class="num">2 775 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|apartment"><span class="tl">Счет Квартира</span></td><td class="num">6 105 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-08|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">2 220 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
+<section class="month" data-idx="10">
+      <div class="mhead"><div class="mtitle">Сентябрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет, фонд и путешествие набраны: свободные 11 100 BYN в месяц делятся — квартира 55% / свадьба 25% / личные накопления 20%.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="48705" data-unit="byn">0 BYN</span><span class="hnote">$16 235 · €13 916</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="6101" data-unit="byn">0 BYN</span><span class="hnote">$2 034</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="13422" data-unit="byn">0 BYN</span><span class="hnote">$4 474</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="10500" data-unit="byn">0 BYN</span><span class="hnote">$3 500 из $3 500 ✓</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="18681" data-unit="byn">0 BYN</span><span class="hnote">$6 227 · €5 337 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|wedding"><span class="tl">Счет Свадьба</span></td><td class="num">2 775 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|apartment"><span class="tl">Счет Квартира</span></td><td class="num">6 105 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-09|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">2 220 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
+<section class="month" data-idx="11">
+      <div class="mhead"><div class="mtitle">Октябрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет, фонд и путешествие набраны: свободные 11 100 BYN в месяц делятся — квартира 55% / свадьба 25% / личные накопления 20%.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="59805" data-unit="byn">0 BYN</span><span class="hnote">$19 935 · €17 087</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="8876" data-unit="byn">0 BYN</span><span class="hnote">$2 959</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="19527" data-unit="byn">0 BYN</span><span class="hnote">$6 509</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="10500" data-unit="byn">0 BYN</span><span class="hnote">$3 500 из $3 500 ✓</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="20901" data-unit="byn">0 BYN</span><span class="hnote">$6 967 · €5 972 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|wedding"><span class="tl">Счет Свадьба</span></td><td class="num">2 775 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|apartment"><span class="tl">Счет Квартира</span></td><td class="num">6 105 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-10|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">2 220 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
+<section class="month" data-idx="12">
+      <div class="mhead"><div class="mtitle">Ноябрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет, фонд и путешествие набраны: свободные 11 100 BYN в месяц делятся — квартира 55% / свадьба 25% / личные накопления 20%.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="70905" data-unit="byn">0 BYN</span><span class="hnote">$23 635 · €20 258</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="11651" data-unit="byn">0 BYN</span><span class="hnote">$3 884</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="25632" data-unit="byn">0 BYN</span><span class="hnote">$8 544</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="10500" data-unit="byn">0 BYN</span><span class="hnote">$3 500 из $3 500 ✓</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="23121" data-unit="byn">0 BYN</span><span class="hnote">$7 707 · €6 606 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|wedding"><span class="tl">Счет Свадьба</span></td><td class="num">2 775 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|apartment"><span class="tl">Счет Квартира</span></td><td class="num">6 105 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-11|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">2 220 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
+<section class="month" data-idx="13">
+      <div class="mhead"><div class="mtitle">Декабрь 2027</div><div class="mph p3">Фаза 3 · Жизнь лучше + цели</div></div>
+      <div class="tagline">🎯 Долгов нет, фонд и путешествие набраны: свободные 11 100 BYN в месяц делятся — квартира 55% / свадьба 25% / личные накопления 20%.</div>
+      <div class="hero">
+        <div class="hstat h3"><span class="hlab">Долг</span><span class="hval" data-val="0" data-unit="usd">$0</span></div>
+        <div class="hstat h1"><span class="hlab">Зарплата</span><span class="hval" data-val="13500" data-unit="byn">0 BYN</span></div>
+        
+        <div class="hstat h4"><span class="hlab">Накоплено итого по всем фронтам</span><span class="hval" data-val="82005" data-unit="byn">0 BYN</span><span class="hnote">$27 335 · €23 430</span></div>
+        <div class="hstat h5"><span class="hlab">Свадьба</span><span class="hval" data-val="14426" data-unit="byn">0 BYN</span><span class="hnote">$4 809</span></div>
+        <div class="hstat h7"><span class="hlab">Квартира</span><span class="hval" data-val="31737" data-unit="byn">0 BYN</span><span class="hnote">$10 579</span></div>
+        <div class="hstat h8"><span class="hlab">Путешествие</span><span class="hval" data-val="10500" data-unit="byn">0 BYN</span><span class="hnote">$3 500 из $3 500 ✓</span></div>
+        <div class="hstat h6"><span class="hlab">Личные накопления</span><span class="hval" data-val="25341" data-unit="byn">0 BYN</span><span class="hnote">$8 447 · €7 240 · в т.ч. страховой фонд $4 600</span></div>
+      </div>
+      <div class="poolgrid">
+        <div class="poolcard c1"><div class="pctitle"><span>1 число · BYN</span></div><table class="ptab"><tr class="grp"><td>Быт</td><td class="num">2 400 BYN ($800)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|Еда"><span class="tl">Еда</span></td><td class="num">1 200 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|Личные расходы"><span class="tl">Личные расходы</span></td><td class="num">800 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|Коммуналка"><span class="tl">Коммуналка</span></td><td class="num">300 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|Интернет и телефон"><span class="tl">Интернет и телефон</span></td><td class="num">100 BYN</td></tr><tr class="grp"><td>Резерв</td><td class="num">11 100 BYN ($3 700)</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|wedding"><span class="tl">Счет Свадьба</span></td><td class="num">2 775 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|apartment"><span class="tl">Счет Квартира</span></td><td class="num">6 105 BYN</td></tr><tr class="item"><td><input type="checkbox" class="chk" data-k="2027-12|sh|euro"><span class="tl">Личные накопления · евро карта (страховой фонд)</span></td><td class="num">2 220 BYN</td></tr><tr class="rest good"><td>Остаток</td><td class="num">+0 BYN</td></tr></table></div>
+        
+        <div class="svcol"><div class="poolcard svbox" data-k="p"><div class="svh"><span class="svt"><i style="background:var(--yellow)"></i>Личные накопления</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="w"><div class="svh"><span class="svt"><i style="background:var(--violet)"></i>Свадьба</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="a"><div class="svh"><span class="svt"><i style="background:var(--blue)"></i>Квартира</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="v"><div class="svh"><span class="svt"><i style="background:var(--orange)"></i>Путешествие</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div><div class="poolcard svbox" data-k="t"><div class="svh"><span class="svt"><i style="background:var(--green)"></i>Накоплено итого</span><span class="svv"></span></div><div class="svcap">платёж в накопления по месяцам, BYN</div><div class="svc"></div></div></div>
+      </div>
+      
+      <div class="mfoot"><span class="paid">оплачено 0/0</span>
+        <span class="bar"><span class="fill" data-w="100" style="width:0%"></span></span><span class="pct">100%</span></div>
+    </section>
 </div>
 
 <script>
-const D={"usd": 3.0, "stas_rate": 3.1, "stas_start_usd": 6250.0, "rows": [{"ym": "2026-11", "income": 9200.0, "advance": 100.0, "interest": 721.7270608333333, "mins": 2400.0, "pays": {"БНБ Кредит": 100.0, "Овердрафт БНБ": 150.0, "Креди Сбер Банк Маши": 40.0, "Мой кредит на технику": 350.0, "Мой кредит на ПК": 250.0, "Красная Карта Личная": 200.0, "Карта 100 дней Личная": 110.0, "Красная Карта Мамы": 200.0, "Красная Карта Маши": 100.0, "Карта 100 дней Маши": 150.0, "Кредит наличных Маши": 250.0, "Рассрочка Альфа (Андрей)": 300.0, "Рассрочка Альфа (Маша)": 200.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 2623.66, "Овердрафт БНБ": 9155.04, "Креди Сбер Банк Маши": 2014.0, "Мой кредит на технику": 4893.27, "Мой кредит на ПК": 4480.84, "Красная Карта Личная": 4694.69, "Карта 100 дней Личная": 2847.42, "Красная Карта Мамы": 4482.41, "Красная Карта Маши": 1604.39, "Карта 100 дней Маши": 2724.99, "Кредит наличных Маши": 4010.97, "Рассрочка Альфа (Андрей)": 400.0, "Рассрочка Альфа (Маша)": 658.03}, "credits_total": 44589.697060833336, "util": 400.0, "food": 1100.0, "pocket": 300.0, "oneoffs": [["Маше на операцию по глазам", 1500.0]], "loss": 0.0, "stas_usd": 1096.774193548387, "stas_byn": 3400.0, "stas_left": 5153.225806451613, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 0.0, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2026-12", "income": 13500.0, "advance": 100.0, "interest": 700.6162817428471, "mins": 2400.0, "pays": {"БНБ Кредит": 100.0, "Овердрафт БНБ": 150.0, "Креди Сбер Банк Маши": 40.0, "Мой кредит на технику": 350.0, "Мой кредит на ПК": 250.0, "Красная Карта Личная": 200.0, "Карта 100 дней Личная": 110.0, "Красная Карта Мамы": 200.0, "Красная Карта Маши": 100.0, "Карта 100 дней Маши": 150.0, "Кредит наличных Маши": 250.0, "Рассрочка Альфа (Андрей)": 300.0, "Рассрочка Альфа (Маша)": 200.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 2578.32, "Овердрафт БНБ": 9157.63, "Креди Сбер Банк Маши": 2007.57, "Мой кредит на технику": 4618.7, "Мой кредит на ПК": 4299.92, "Красная Карта Личная": 4565.11, "Карта 100 дней Личная": 2780.13, "Красная Карта Мамы": 4349.64, "Красная Карта Маши": 1528.45, "Карта 100 дней Маши": 2615.86, "Кредит наличных Маши": 3821.13, "Рассрочка Альфа (Андрей)": 100.0, "Рассрочка Альфа (Маша)": 467.85}, "credits_total": 42890.313342576184, "util": 400.0, "food": 1100.0, "pocket": 300.0, "oneoffs": [["Новый год: подарки и стол", 700.0]], "loss": 0.0, "stas_usd": 2741.935483870968, "stas_byn": 8500.0, "stas_left": 2411.290322580645, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 0.0, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-01", "income": 13500.0, "advance": 100.0, "interest": 679.1806896525209, "mins": 2200.0, "pays": {"БНБ Кредит": 100.0, "Овердрафт БНБ": 150.0, "Креди Сбер Банк Маши": 40.0, "Мой кредит на технику": 350.0, "Мой кредит на ПК": 250.0, "Красная Карта Личная": 200.0, "Карта 100 дней Личная": 110.0, "Красная Карта Мамы": 200.0, "Красная Карта Маши": 100.0, "Карта 100 дней Маши": 150.0, "Кредит наличных Маши": 250.0, "Рассрочка Альфа (Андрей)": 100.0, "Рассрочка Альфа (Маша)": 200.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 2532.04, "Овердрафт БНБ": 9160.25, "Креди Сбер Банк Маши": 2001.03, "Мой кредит на технику": 4339.91, "Мой кредит на ПК": 4116.21, "Красная Карта Личная": 4433.58, "Карта 100 дней Личная": 2711.83, "Красная Карта Мамы": 4214.89, "Красная Карта Маши": 1451.38, "Карта 100 дней Маши": 2505.1, "Кредит наличных Маши": 3628.45, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 274.83}, "credits_total": 41369.4940322287, "util": 400.0, "food": 1100.0, "pocket": 300.0, "oneoffs": [], "loss": 0.0, "stas_usd": 2411.290322580645, "stas_byn": 7474.999999999999, "stas_left": 0.0, "to_buffer": 1925.000000000001, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 1925.000000000001, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-02", "income": 13500.0, "advance": 100.0, "interest": 657.4152572160376, "mins": 2100.0, "pays": {"БНБ Кредит": 100.0, "Овердрафт БНБ": 8180.0, "Креди Сбер Банк Маши": 40.0, "Мой кредит на технику": 350.0, "Мой кредит на ПК": 250.0, "Красная Карта Личная": 200.0, "Карта 100 дней Личная": 110.0, "Красная Карта Мамы": 200.0, "Красная Карта Маши": 100.0, "Карта 100 дней Маши": 150.0, "Кредит наличных Маши": 250.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 200.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 8030.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 2484.79, "Овердрафт БНБ": 1132.92, "Креди Сбер Банк Маши": 1994.38, "Мой кредит на технику": 4056.82, "Мой кредит на ПК": 3929.66, "Красная Карта Личная": 4300.09, "Карта 100 дней Личная": 2642.51, "Красная Карта Мамы": 4078.11, "Красная Карта Маши": 1373.15, "Карта 100 дней Маши": 2392.68, "Кредит наличных Маши": 3432.88, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 78.92}, "credits_total": 31896.90928944474, "util": 400.0, "food": 1200.0, "pocket": 300.0, "oneoffs": [["Долг маме 170 € (после закрытия Стаса)", 595.0]], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 774.9999999999991, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 2700.0, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-03", "income": 13500.0, "advance": 100.0, "interest": 501.4815453385972, "mins": 1980.1019536089595, "pays": {"БНБ Кредит": 100.0, "Овердрафт БНБ": 1151.81, "Креди Сбер Банк Маши": 40.0, "Мой кредит на технику": 350.0, "Мой кредит на ПК": 250.0, "Красная Карта Личная": 200.0, "Карта 100 дней Личная": 2682.14, "Красная Карта Мамы": 2273.63, "Красная Карта Маши": 1393.75, "Карта 100 дней Маши": 2428.57, "Кредит наличных Маши": 250.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 80.1}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 1001.81, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 2572.14, "Красная Карта Мамы": 2073.63, "Красная Карта Маши": 1293.75, "Карта 100 дней Маши": 2278.57, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 2436.56, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 1987.62, "Мой кредит на технику": 3769.36, "Мой кредит на ПК": 3740.25, "Красная Карта Личная": 4164.59, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 1865.65, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 3234.37, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 21198.390834783335, "util": 400.0, "food": 1200.0, "pocket": 300.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 300.0, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 3000.0, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-04", "income": 13500.0, "advance": 100.0, "interest": 338.6308119983105, "mins": 1390.0, "pays": {"БНБ Кредит": 2487.32, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 1741.99, "Мой кредит на технику": 350.0, "Мой кредит на ПК": 250.0, "Красная Карта Личная": 4227.06, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 1893.64, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 250.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 2387.32, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 1701.99, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 4027.06, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 1693.64, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 278.76, "Мой кредит на технику": 3477.47, "Мой кредит на ПК": 3547.91, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 3032.89, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 10337.021646781644, "util": 400.0, "food": 1200.0, "pocket": 300.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 300.0, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 3300.0, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-05", "income": 13500.0, "advance": 100.0, "interest": 158.44715884871908, "mins": 890.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 283.4, "Мой кредит на технику": 3531.08, "Мой кредит на ПК": 3602.61, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 3078.38, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 243.4, "Мой кредит на технику": 3181.08, "Мой кредит на ПК": 3352.61, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 2828.38, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 300.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 1004.5311943696361, "to_travel": 0.0, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 4304.531194369636, "travel": 0.0, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-06", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 9495.468805630364, "to_travel": 1604.531194369636, "to_apartment": 0.0, "to_wedding": 0.0, "to_personal": 0.0, "buffer": 13800.0, "travel": 1604.531194369636, "apartment": 0.0, "wedding": 0.0, "personal": 0.0, "leftover_unallocated": 0.0}, {"ym": "2027-07", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 0.0, "to_travel": 8895.468805630364, "to_apartment": 1212.4921569033, "to_wedding": 551.132798592409, "to_personal": 440.90623887392724, "buffer": 13800.0, "travel": 10500.0, "apartment": 1212.4921569033, "wedding": 551.132798592409, "personal": 440.90623887392724, "leftover_unallocated": 0.0}, {"ym": "2027-08", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 6105.000000000001, "to_wedding": 2775.0, "to_personal": 2220.0, "buffer": 13800.0, "travel": 10500.0, "apartment": 7317.492156903301, "wedding": 3326.132798592409, "personal": 2660.906238873927, "leftover_unallocated": 0.0}, {"ym": "2027-09", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 6105.000000000001, "to_wedding": 2775.0, "to_personal": 2220.0, "buffer": 13800.0, "travel": 10500.0, "apartment": 13422.492156903303, "wedding": 6101.132798592409, "personal": 4880.906238873928, "leftover_unallocated": 0.0}, {"ym": "2027-10", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 6105.000000000001, "to_wedding": 2775.0, "to_personal": 2220.0, "buffer": 13800.0, "travel": 10500.0, "apartment": 19527.492156903303, "wedding": 8876.132798592409, "personal": 7100.906238873928, "leftover_unallocated": 0.0}, {"ym": "2027-11", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 6105.000000000001, "to_wedding": 2775.0, "to_personal": 2220.0, "buffer": 13800.0, "travel": 10500.0, "apartment": 25632.492156903303, "wedding": 11651.132798592409, "personal": 9320.906238873928, "leftover_unallocated": 0.0}, {"ym": "2027-12", "income": 13500.0, "advance": 100.0, "interest": 0.0, "mins": 0.0, "pays": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "extra": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "bal": {"БНБ Кредит": 0.0, "Овердрафт БНБ": 0.0, "Креди Сбер Банк Маши": 0.0, "Мой кредит на технику": 0.0, "Мой кредит на ПК": 0.0, "Красная Карта Личная": 0.0, "Карта 100 дней Личная": 0.0, "Красная Карта Мамы": 0.0, "Красная Карта Маши": 0.0, "Карта 100 дней Маши": 0.0, "Кредит наличных Маши": 0.0, "Рассрочка Альфа (Андрей)": 0.0, "Рассрочка Альфа (Маша)": 0.0}, "credits_total": 0.0, "util": 400.0, "food": 1200.0, "pocket": 700.0, "oneoffs": [], "loss": 0.0, "stas_usd": 0.0, "stas_byn": 0.0, "stas_left": 0.0, "to_buffer": 0.0, "to_travel": 0.0, "to_apartment": 6105.000000000001, "to_wedding": 2775.0, "to_personal": 2220.0, "buffer": 13800.0, "travel": 10500.0, "apartment": 31737.492156903303, "wedding": 14426.132798592409, "personal": 11540.906238873928, "leftover_unallocated": 0.0}], "debts": [{"name": "Овердрафт БНБ", "owner": "andrei", "rate": 20, "bal": 9152.5, "min": 150, "interest": 152.54166666666666, "net": -2.541666666666657, "revolving": true}, {"name": "Мой кредит на технику", "owner": "andrei", "rate": 18.5, "bal": 5163.66, "min": 350, "interest": 79.60642499999999, "net": 270.393575, "revolving": false}, {"name": "Красная Карта Личная", "owner": "andrei", "rate": 18, "bal": 4822.35, "min": 200, "interest": 72.33525, "net": 127.66475, "revolving": true}, {"name": "Мой кредит на ПК", "owner": "andrei", "rate": 18.5, "bal": 4659.01, "min": 250, "interest": 71.82640416666666, "net": 178.17359583333334, "revolving": false}, {"name": "Красная Карта Мамы", "owner": "mama", "rate": 18, "bal": 4613.21, "min": 200, "interest": 69.19815, "net": 130.80185, "revolving": true}, {"name": "Кредит наличных Маши", "owner": "masha", "rate": 18, "bal": 4198.0, "min": 250, "interest": 62.97, "net": 187.03, "revolving": false}, {"name": "БНБ Кредит", "owner": "andrei", "rate": 25, "bal": 2668.08, "min": 100, "interest": 55.585, "net": 44.415, "revolving": false}, {"name": "Карта 100 дней Личная", "owner": "andrei", "rate": 18, "bal": 2913.71, "min": 110, "interest": 43.70565, "net": 66.29435000000001, "revolving": true}, {"name": "Карта 100 дней Маши", "owner": "masha", "rate": 18, "bal": 2832.5, "min": 150, "interest": 42.4875, "net": 107.5125, "revolving": true}, {"name": "Креди Сбер Банк Маши", "owner": "masha", "rate": 20, "bal": 2020.33, "min": 40, "interest": 33.67216666666666, "net": 6.327833333333338, "revolving": false}, {"name": "Красная Карта Маши", "owner": "masha", "rate": 18, "bal": 1679.2, "min": 100, "interest": 25.188000000000002, "net": 74.812, "revolving": true}, {"name": "Рассрочка Альфа (Маша)", "owner": "masha", "rate": 17.9, "bal": 845.42, "min": 200, "interest": 12.610848333333331, "net": 187.38915166666666, "revolving": true}, {"name": "Рассрочка Альфа (Андрей)", "owner": "andrei", "rate": 0, "bal": 700.0, "min": 300, "interest": 0.0, "net": 300.0, "revolving": true}], "totals": {"bal": 46267.97, "interest": 721.7270608333333, "min": 2400, "income": 13500.0, "mins_interest": 8187.986813610847, "mins_remaining": 26275.85486000189}, "strategies": {"avalanche": {"interest": 3724.0430234093205, "closed": "2027-05", "open_mar": 7, "open_apr": 3, "savings": 82037.98697659069, "first_close": "2027-01", "rev_open_feb": 7, "rev_open_mar": 5, "rev_open_apr": 2, "rev_last": "2027-05"}, "snowball": {"interest": 3762.792356883815, "closed": "2027-05", "open_mar": 5, "open_apr": 2, "savings": 81999.23764311618, "first_close": "2027-01", "rev_open_feb": 4, "rev_open_mar": 3, "rev_open_apr": 2, "rev_last": "2027-05"}, "payment": {"interest": 3794.2142141805566, "closed": "2027-05", "open_mar": 7, "open_apr": 6, "savings": 81967.81578581943, "first_close": "2027-01", "rev_open_feb": 7, "rev_open_mar": 5, "rev_open_apr": 4, "rev_last": "2027-05"}, "cfi": {"interest": 3795.7578362561408, "closed": "2027-05", "open_mar": 6, "open_apr": 2, "savings": 81966.27216374387, "first_close": "2027-01", "rev_open_feb": 6, "rev_open_mar": 4, "rev_open_apr": 1, "rev_last": "2027-05"}, "access": {"interest": 3757.498805630366, "closed": "2027-05", "open_mar": 7, "open_apr": 4, "savings": 82004.53119436964, "first_close": "2027-01", "rev_open_feb": 7, "rev_open_mar": 2, "rev_open_apr": 0, "rev_last": "2027-04"}}, "stress": [{"label": "Срыв 3 110 BYN в ноябре", "credits_closed": "2027-06", "stas_closed": "2027-02", "stas_end": 0.0, "interest": 3954.99508037466, "savings": 79097.03491962535, "d_interest": 197.49627474429417, "d_savings": -2907.4962747442914}, {"label": "Срыв 3 110 BYN в декабре", "credits_closed": "2027-06", "stas_closed": "2027-02", "stas_end": 0.0, "interest": 3954.99508037466, "savings": 79097.03491962535, "d_interest": 197.49627474429417, "d_savings": -2907.4962747442914}, {"label": "Срыв 3 110 BYN в феврале", "credits_closed": "2027-06", "stas_closed": "2027-01", "stas_end": 0.0, "interest": 3954.99508037466, "savings": 79097.03491962535, "d_interest": 197.49627474429417, "d_savings": -2907.4962747442914}, {"label": "Срыв 3 110 BYN в марте", "credits_closed": "2027-06", "stas_closed": "2027-01", "stas_end": 0.0, "interest": 3900.482584628133, "savings": 79151.54741537187, "d_interest": 142.98377899776688, "d_savings": -2852.9837789977755}, {"label": "Срыв 6 000 BYN в феврале", "credits_closed": "2027-06", "stas_closed": "2027-01", "stas_end": 0.0, "interest": 4143.736466943237, "savings": 76018.29353305677, "d_interest": 386.2376613128713, "d_savings": -5986.237661312873}], "base": {"strategy": "access", "total_interest": 3757.498805630366, "credits_closed": "2027-05", "stas_closed": "2027-01", "end_credits": 0.0, "end_stas": 0.0, "savings_end": 82004.53119436964}, "neutral": {"strategy": "access", "total_interest": 3872.6273051142443, "credits_closed": "2027-06", "stas_closed": "2027-01", "end_credits": 0.0, "end_stas": 0.0, "savings_end": 79789.40269488576}, "current": {"credits_closed": "2027-09", "stas_closed": "2027-01", "interest": 4741.54, "savings": 81254.06999999999, "wedding": 19849.32, "apartment": 19849.32, "travel": 17205.989999999998, "personal": 24349.44}, "emergency_full": 13800.0, "travel_target": 10500.0, "refi": {"rate": 14.0, "saving": 1032.0057591947366}, "consts": {"util": 400.0, "food": 1200.0, "food_early": 1100.0, "pocket_blitz": 300.0, "pocket_free": 700.0, "advance": 100.0, "buffer_target": 2400.0, "habit": 300.0, "split": {"apartment": 0.55, "wedding": 0.25, "personal": 0.2}, "income_nov": 9200.0, "casino_sep": 3110.0, "oneoffs": {"2026-11": [["Маше на операцию по глазам", 1500.0]], "2026-12": [["Новый год: подарки и стол", 700.0]], "2027-02": [["Долг маме 170 € (после закрытия Стаса)", 595.0]]}}};
-const USD=D.usd, R=D.rows;
-const MN=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
-const MS=["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
-const fm=n=>Math.round(n).toLocaleString("ru-RU");
-const byn=n=>fm(n)+" BYN";
-const usd=n=>"$"+fm(n);
-const mname=ym=>{const [y,m]=ym.split("-");return MN[+m-1]+" "+y;};
-const mshort=ym=>{const [y,m]=ym.split("-");return MS[+m-1]+" "+y.slice(2);};
-const GEN=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
-const LOC=["январе","феврале","марте","апреле","мае","июне","июле","августе","сентябре","октябре","ноябре","декабре"];
-const mgen=ym=>{const [y,m]=ym.split("-");return GEN[+m-1]+" "+y;};
-const mloc=ym=>{const [y,m]=ym.split("-");return LOC[+m-1]+" "+y;};
-const dc=(v,n=1)=>v.toFixed(n).replace(".",",");
-const $=id=>document.getElementById(id);
-const last=R[R.length-1];
-const base=D.base, cur=D.current, T=D.totals;
-const stasStartUsd=D.stas_start_usd;
-const credStartUsd=T.bal/USD;
-const savUsd=base.savings_end/USD;
-const C=D.consts;
-const AVG_WAGE=2976; /* Белстат, март 2026 (по данным myfin.by) */
-const mIdx=ym=>{const [y,m]=ym.split("-");return (+y)*12+(+m);};
-const monthsLeft=(a,b)=>mIdx(b)-mIdx(a);
-const openMonths=ym=>monthsLeft(R[0].ym,ym)+1;
-const pocketTotal=C.pocket_blitz+C.advance;
-const byName=n=>D.debts.find(d=>d.name===n);
+const D={"roadmap": [{"ym": "2026-11", "label": "Ноя 2026", "phase": 1, "prog": 6.3, "milestones": []}, {"ym": "2026-12", "label": "Дек 2026", "phase": 1, "prog": 18.9, "milestones": []}, {"ym": "2027-01", "label": "Янв 2027", "phase": 1, "prog": 32.4, "milestones": [["🤝", "Стас закрыт"]]}, {"ym": "2027-02", "label": "Фев 2027", "phase": 2, "prog": 45.4, "milestones": []}, {"ym": "2027-03", "label": "Мар 2027", "phase": 2, "prog": 59.4, "milestones": []}, {"ym": "2027-04", "label": "Апр 2027", "phase": 2, "prog": 73.6, "milestones": []}, {"ym": "2027-05", "label": "Май 2027", "phase": 2, "prog": 88.0, "milestones": [["🔥", "Кредиты закрыты"]]}, {"ym": "2027-06", "label": "Июн 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-07", "label": "Июл 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-08", "label": "Авг 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-09", "label": "Сен 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-10", "label": "Окт 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-11", "label": "Ноя 2027", "phase": 3, "prog": 100.0, "milestones": []}, {"ym": "2027-12", "label": "Дек 2027", "phase": 3, "prog": 100.0, "milestones": []}], "rate": 3.0, "savings": [{"l": "Ноя 2026", "f": "Ноябрь 2026", "t": 0, "w": 0, "a": 0, "p": 0, "v": 0, "cv": 0, "ct": 0, "cw": 0, "ca": 0, "cp": 0}, {"l": "Дек 2026", "f": "Декабрь 2026", "t": 0, "w": 0, "a": 0, "p": 0, "v": 0, "cv": 0, "ct": 0, "cw": 0, "ca": 0, "cp": 0}, {"l": "Янв 2027", "f": "Январь 2027", "t": 1925, "w": 0, "a": 0, "p": 1925, "v": 0, "cv": 0, "ct": 1925, "cw": 0, "ca": 0, "cp": 1925}, {"l": "Фев 2027", "f": "Февраль 2027", "t": 775, "w": 0, "a": 0, "p": 775, "v": 0, "cv": 0, "ct": 2700, "cw": 0, "ca": 0, "cp": 2700}, {"l": "Мар 2027", "f": "Март 2027", "t": 300, "w": 0, "a": 0, "p": 300, "v": 0, "cv": 0, "ct": 3000, "cw": 0, "ca": 0, "cp": 3000}, {"l": "Апр 2027", "f": "Апрель 2027", "t": 300, "w": 0, "a": 0, "p": 300, "v": 0, "cv": 0, "ct": 3300, "cw": 0, "ca": 0, "cp": 3300}, {"l": "Май 2027", "f": "Май 2027", "t": 1005, "w": 0, "a": 0, "p": 1005, "v": 0, "cv": 0, "ct": 4305, "cw": 0, "ca": 0, "cp": 4305}, {"l": "Июн 2027", "f": "Июнь 2027", "t": 11100, "w": 0, "a": 0, "p": 9495, "v": 1605, "cv": 1605, "ct": 15405, "cw": 0, "ca": 0, "cp": 13800}, {"l": "Июл 2027", "f": "Июль 2027", "t": 11100, "w": 551, "a": 1212, "p": 442, "v": 8895, "cv": 10500, "ct": 26505, "cw": 551, "ca": 1212, "cp": 14241}, {"l": "Авг 2027", "f": "Август 2027", "t": 11100, "w": 2775, "a": 6105, "p": 2220, "v": 0, "cv": 10500, "ct": 37605, "cw": 3326, "ca": 7317, "cp": 16461}, {"l": "Сен 2027", "f": "Сентябрь 2027", "t": 11100, "w": 2775, "a": 6105, "p": 2220, "v": 0, "cv": 10500, "ct": 48705, "cw": 6101, "ca": 13422, "cp": 18681}, {"l": "Окт 2027", "f": "Октябрь 2027", "t": 11100, "w": 2775, "a": 6105, "p": 2220, "v": 0, "cv": 10500, "ct": 59805, "cw": 8876, "ca": 19527, "cp": 20901}, {"l": "Ноя 2027", "f": "Ноябрь 2027", "t": 11100, "w": 2775, "a": 6105, "p": 2220, "v": 0, "cv": 10500, "ct": 70905, "cw": 11651, "ca": 25632, "cp": 23121}, {"l": "Дек 2027", "f": "Декабрь 2027", "t": 11100, "w": 2775, "a": 6105, "p": 2220, "v": 0, "cv": 10500, "ct": 82005, "cw": 14426, "ca": 31737, "cp": 25341}], "caps": {"w": 16000.0, "a": 16000.0, "v": 3500.0}};
+const money=v=>"$"+Math.round(v).toLocaleString("ru-RU");
+// ---- графики накоплений (по одному на каждый фронт, SVG без библиотек) ----
+// Значения — ЕЖЕМЕСЯЧНЫЙ платёж в накопления (BYN), не накопленный итог. Кривая строится до ТЕКУЩЕГО месяца; при переходе на следующий дорисовывается новый отрезок (анимация).
+const SV_SERIES=[["t","Накоплено итого","var(--green)"],["w","Свадьба","var(--violet)"],
+                 ["a","Квартира","var(--blue)"],["p","Личные накопления","var(--yellow)"],["v","Путешествие","var(--orange)"]];
+let svPrev=null;
+function svNiceStep(x){const p=Math.pow(10,Math.floor(Math.log10(x)));for(const k of [1,2,2.5,5,10]) if(k*p>=x) return k*p; return 10*p;}
+function svFmt(v){return v>=1000?(v/1000).toFixed(v%1000?1:0).replace(".0","")+"k":String(Math.round(v));}
+function svDrawOne(cont,k,col,cur,prev){
+  const S=D.savings, n=S.length, R=D.rate, W=560, H=200, pl=42, pr=16, pt=22, pb=24, DUR=650;
+  const mx=Math.max(1,...S.map(p=>p[k]));
+  const step=svNiceStep(mx/3), top=Math.ceil(mx/step)*step;
+  const X=i=>pl+(W-pl-pr)*(n>1?i/(n-1):.5), Y=v=>pt+(H-pt-pb)*(1-v/top);
+  const P=i=>X(i)+","+Y(S[i][k]);
+  // с какого индекса рисуем анимированную часть: первый показ — с нуля, вперёд — от предыдущего месяца, назад — без анимации
+  const baseEnd = prev===null ? -1 : (prev<cur ? prev : cur);
+  const animFrom = prev===null ? 0 : (prev<cur ? prev : cur);
+  let g="";
+  for(let v=0;v<=top+1e-6;v+=step){ g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)" stroke-width="1"/><text x="${pl-5}" y="${Y(v)+3.5}" text-anchor="end" font-size="11" fill="var(--muted)">${svFmt(v)}</text>`; }
+  S.forEach((p,i)=>{ if(i%3===0||i===n-1) g+=`<text x="${X(i)}" y="${H-6}" text-anchor="middle" font-size="11" fill="var(--muted)">${p.l.replace(/ 20(\d\d)/," $1")}</text>`; });
+  g+=`<line class="svhov" x1="0" x2="0" y1="${pt}" y2="${H-pb}" stroke="var(--ink)" stroke-width="1" opacity="0"/>`;
+  if(baseEnd>=1) g+=`<polyline points="${Array.from({length:baseEnd+1},(_,i)=>P(i)).join(" ")}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+  if(animFrom<cur) g+=`<polyline class="svnew" points="${Array.from({length:cur-animFrom+1},(_,j)=>P(animFrom+j)).join(" ")}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const newFrom = prev===null ? 0 : (prev<cur ? prev+1 : cur+1);   // точки, которые появляются с анимацией
+  for(let i=0;i<=cur;i++){
+    const isNew=i>=newFrom, delay=isNew?Math.round(DUR*(i-animFrom)/Math.max(1,cur-animFrom)):0;
+    const st=isNew?`opacity:0;transition-delay:${delay}ms`:"";
+    g+=`<circle class="svp" data-i="${i}" cx="${X(i)}" cy="${Y(S[i][k])}" r="${i===cur?4.6:3}" fill="${col}" stroke="var(--surface)" stroke-width="1.4" style="${st}"/>`;
+    g+=`<text class="svl" x="${X(i)}" y="${Y(S[i][k])-9}" text-anchor="middle" font-size="${i===cur?11:10}" font-weight="${i===cur?700:500}" fill="${i===cur?"var(--ink)":"var(--ink2)"}" style="${st}">${fmtSp(S[i][k])}</text>`;
+  }
+  const cw=(W-pl-pr)/(n>1?n-1:1);
+  for(let i=0;i<=cur;i++) g+=`<rect class="svhit" data-i="${i}" x="${X(i)-cw/2}" y="${pt}" width="${cw}" height="${H-pt-pb}" fill="transparent"/>`;
+  cont.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg><div class="sv-tip"></div>`;
+  const svg=cont.querySelector("svg"), tip=cont.querySelector(".sv-tip"), hov=cont.querySelector(".svhov");
+  // анимация: новый отрезок дорисовывается, новые точки проявляются
+  const np=cont.querySelector(".svnew");
+  if(np){ const L=np.getTotalLength(); np.style.strokeDasharray=L; np.style.strokeDashoffset=L;
+    np.getBoundingClientRect(); np.style.transition=`stroke-dashoffset ${DUR}ms cubic-bezier(.22,.61,.36,1)`; np.style.strokeDashoffset=0; }
+  requestAnimationFrame(()=>requestAnimationFrame(()=>cont.querySelectorAll(".svp,.svl").forEach(c=>{ c.style.opacity=1; })));
+  const show=i=>{
+    const p=S[i]; hov.setAttribute("x1",X(i)); hov.setAttribute("x2",X(i)); hov.setAttribute("opacity",".3");
+    cont.querySelectorAll(".svp").forEach(c=>c.setAttribute("r",(+c.dataset.i===i)?5.6:(+c.dataset.i===cur?4.6:3)));
+    tip.innerHTML=`<b>${p.f}</b>${fmtSp(p[k])} BYN<small>${money(p[k]/R)}</small>`;
+    tip.style.display="block";
+    const sr=svg.getBoundingClientRect(), cr=cont.getBoundingClientRect();
+    const px=(X(i)/W)*sr.width+(sr.left-cr.left), py=(sr.top-cr.top)+(Y(p[k])/H)*sr.height;
+    let lx=(px>cr.width*.55?px-tip.offsetWidth-10:px+10); lx=Math.max(0,Math.min(lx,cr.width-tip.offsetWidth));
+    tip.style.left=lx+"px"; tip.style.top=Math.max(0,py-tip.offsetHeight-8)+"px";
+  };
+  const hide=()=>{ tip.style.display="none"; hov.setAttribute("opacity","0");
+    cont.querySelectorAll(".svp").forEach(c=>c.setAttribute("r",(+c.dataset.i===cur)?4.6:3)); };
+  cont.querySelectorAll(".svhit").forEach(r=>{ r.addEventListener("pointerenter",()=>show(+r.dataset.i)); r.addEventListener("pointermove",()=>show(+r.dataset.i)); });
+  svg.addEventListener("pointerleave",hide);
+}
+function drawSavings(monthEl,cur){
+  const S=D.savings, R=D.rate, prev=svPrev;
+  monthEl.querySelectorAll(".svbox").forEach(box=>{
+    const k=box.dataset.k, col=SV_SERIES.find(s=>s[0]===k)[2];
+    const cum=S[cur]["c"+k], cap=D.caps[k];
+    box.querySelector(".svv").innerHTML=`${fmtSp(cum)} BYN<small>${money(cum/R)}${cap?` из ${money(cap)}${cum/R>=cap?(k==="v"?" ✓ набрано":" ✓ копим дальше"):""}`:""}</small>`;
+    svDrawOne(box.querySelector(".svc"),k,col,cur,prev);
+  });
+  svPrev=cur;
+}
 
-/* вердикт и KPI */
-$("verdict").innerHTML=`<div class="verdict"><b>Вердикт.</b> Проблема не в доходе: ${byn(T.income)} (${usd(T.income/USD)}) — это около ${(T.income/AVG_WAGE).toFixed(1).replace(".",",")} средней зарплаты по стране. Долги держатся на порядке платежей и на открытом доступе к деньгам. План ниже закрывает <b>Стаса в ${mloc(base.stas_closed)}</b> (дедлайн выполнен), <b>все ${D.debts.length} кредитов — в ${mloc(base.credits_closed)}</b> (в текущем плане — в ${mloc(cur.credits_closed)}), платит процентов на <b>${usd((cur.interest-base.total_interest)/USD)}</b> меньше и к декабрю 2027 откладывает <b>${usd(savUsd)}</b>: страховой фонд на 6 месяцев, летняя поездка, квартира, свадьба, личные накопления. Минималки платятся каждый месяц без исключений.</div>`;
-const kp=[["Долги сейчас",usd(credStartUsd+stasStartUsd),`кредиты ${byn(T.bal)} + Стас ${usd(stasStartUsd)}`,"var(--red)"],
- ["Проценты банкам",byn(T.interest)+"/мес",`≈ ${usd(T.interest/USD)} · ${(T.interest/T.income*100).toFixed(1).replace(".",",")}% зарплаты каждый месяц`,"var(--orange)"],
- ["Минималки",byn(T.min)+"/мес",`${dc(T.min/T.income*100)}% зарплаты`,"var(--yellow)"],
- ["Стас закрыт",mname(base.stas_closed),"до 31.01 — дедлайн выполнен","var(--green)"],
- ["Свободен от кредитов",mname(base.credits_closed),`вместо ${mgen(cur.credits_closed)} в текущем плане`,"var(--blue)"],
- ["К декабрю 2027",usd(savUsd),"фонд + поездка + квартира + свадьба + личные","var(--violet)"]];
-$("kpis").innerHTML=kp.map(k=>`<div class="kpi" style="--dot:${k[3]}"><div class="lab">${k[0]}</div><div class="val">${k[1]}</div><div class="note">${k[2]}</div></div>`).join("");
 
-/* таблица долгов */
-let h=`<table><tr><th>Долг</th><th>Чей</th><th class="n">Ставка</th><th class="n">Остаток</th><th class="n">Минималка</th><th class="n">Проценты/мес</th><th class="n">Тело/мес</th><th>Пометка</th></tr>`;
-const own={andrei:"Андрей",masha:"Маша",mama:"Мама"};
-D.debts.forEach(d=>{
- let flags="";
- if(d.net<=0) flags+=`<span class="pill p-red">минималка не гасит тело</span> `;
- else if(d.net<10) flags+=`<span class="pill p-red">почти не гасит</span> `;
- if(d.revolving) flags+=`<span class="pill p-orange">линия доступа</span>`;
- h+=`<tr><td>${d.name}</td><td>${own[d.owner]||d.owner}</td><td class="n">${String(d.rate).replace(".",",")}%</td><td class="n">${byn(d.bal)}</td><td class="n">${byn(d.min)}</td><td class="n">${dc(d.interest)}</td><td class="n ${d.net<=0?"bad":""}">${dc(d.net)}</td><td>${flags}</td></tr>`;
+// ---- галочки с сохранением (localStorage) ----
+const CK=JSON.parse(localStorage.getItem("df_checks_audit")||"{}");
+function applyChk(c){ const on=!!CK[c.dataset.k]; c.checked=on; c.closest("tr").classList.toggle("done",on); }
+function updatePaid(){ const m=document.querySelector(".month.show"); if(!m) return;
+  const all=m.querySelectorAll(".chk[data-k]"), done=m.querySelectorAll(".chk[data-k]:checked");
+  const el=m.querySelector(".paid"); if(el) el.textContent="оплачено "+done.length+"/"+all.length; }
+document.querySelectorAll(".chk[data-k]").forEach(c=>{
+  applyChk(c);
+  c.onchange=()=>{ if(CK[c.dataset.k]) delete CK[c.dataset.k]; else CK[c.dataset.k]=1;
+    localStorage.setItem("df_checks_audit",JSON.stringify(CK)); applyChk(c); updatePaid(); };
 });
-h+=`<tr class="tot"><td>Итого кредиты</td><td></td><td class="n"></td><td class="n">${byn(T.bal)}</td><td class="n">${byn(T.min)}</td><td class="n">${fm(T.interest)}</td><td class="n">${fm(T.min-T.interest)}</td><td></td></tr>`;
-h+=`<tr><td>Стас (в $, без процентов по графику)</td><td>Андрей</td><td class="n">—</td><td class="n">${usd(stasStartUsd)}</td><td class="n">дедлайн 31.01</td><td class="n">—</td><td class="n">—</td><td><span class="pill p-blue">срок</span></td></tr></table>`;
-$("debtTable").innerHTML=h;
 
-const revN=D.debts.filter(d=>d.revolving).length;
-const od=byName("Овердрафт БНБ"), sb=byName("Креди Сбер Банк Маши");
-const F=[
- `<b>Доход не проблема.</b> ${byn(T.income)} ≈ ${(T.income/AVG_WAGE).toFixed(1).replace(".",",")} средней зарплаты в стране (≈ ${fm(AVG_WAGE)} BYN, март 2026, Белстат через myfin.by). Сравнение грубое, но порядок понятен.`,
- `<b>Цена долга: ${byn(T.interest)} в месяц процентов</b> (≈ ${usd(T.interest/USD)}) — ${byn(T.interest*12)} в год. Это ${(T.interest/T.income*100).toFixed(1).replace(".",",")}% зарплаты каждый месяц только за обслуживание.`,
- `<b>Две ловушки минималок.</b> ${od.name}: проценты ${od.interest.toFixed(1).replace(".",",")} BYN при минималке ${fm(od.min)} — тело <i>растёт</i> на ${Math.abs(od.net).toFixed(1).replace(".",",")} BYN в месяц. ${sb.name}: из ${fm(sb.min)} BYN минималки ${sb.interest.toFixed(1).replace(".",",")} — проценты, тело убывает на ${sb.net.toFixed(1).replace(".",",")} BYN в месяц. Платя минималки, эти два долга не закроешь.`,
- `<b>Если платить только минималки,</b> к концу ${R[R.length-1].ym.slice(0,4)} года уйдёт ещё <b>${byn(T.mins_interest)}</b> (${usd(T.mins_interest/USD)}) процентов, а останется <b>${byn(T.mins_remaining)}</b> долга. Это главный аргумент за ускорение.`,
- `<b>Возобновляемые линии: ${revN} из ${D.debts.length}</b> (овердрафт, карты, рассрочки Альфа). Их можно снова опустошить — именно через такие линии срыв превращается в долг. Закрытая линия должна быть закрыта физически.`,
- `<b>Утечка.</b> Один срыв сентября 2026 — ${byn(C.casino_sep)}, ≈ ${fm(C.casino_sep/T.income*100)}% месячной зарплаты и больше, чем месячные минималки по всем кредитам (${byn(T.min)}). В стресс-тестах (раздел 8) такой срыв в ноябре или декабре сдвигает закрытие Стаса за дедлайн.`,
- `<b>Почему «от зп до зп».</b> До закрытия Стаса почти все свободные деньги идут в долги, а на руках остаётся «остаток», с которым нет правил. Решение — ограниченные карманные на отдельной карте и автоплатежи в день зарплаты.`,
- `<b>Валюта.</b> Зарплата привязана к $, кредиты в BYN, Стас в $. Курс для расчётов ${dc(USD)} (платежи Стасу ${String(D.stas_rate).replace(".",",")}). Ослабление BYN (ЕАБР: ≈ 3,3 к 2028) делает рублёвые долги легче; на Стаса не влияет.`];
-$("findings").innerHTML=F.map(x=>`<li>${x}</li>`).join("");
-$("refiSave").textContent=`${byn(D.refi.saving)} (≈ ${usd(D.refi.saving/USD)}) за весь период, если бы все ставки выше ${D.refi.rate}% стали ${D.refi.rate}% без комиссий`;
-$("nDebts").textContent=D.debts.length;
-$("pocketTxt").textContent=`${byn(pocketTotal)} в месяц = ${byn(pocketTotal/4)} в неделю`;
-$("pocketWeek").textContent=`${byn(pocketTotal/4)} в неделю`;
+// ---- дорожная карта пути ----
+const rmTrack=document.getElementById("rmTrack"), jPct=document.getElementById("jPct");
+const fmtSp=n=>Math.round(n).toLocaleString("ru-RU").replace(/,/g," ");
+rmTrack.innerHTML='<div class="rm-line"></div><div class="rm-fill" id="rmFill" style="width:0%"></div>'+
+  D.roadmap.map((r,i)=>`<div class="rm-dot p${r.phase}" data-i="${i}"><i></i>${r.milestones.map(m=>`<span class="rm-mile" title="${m[1]}">${m[0]}</span>`).join("")}<span class="rm-tip">${r.label} · ${r.prog}%</span></div>`).join("");
+rmTrack.querySelectorAll(".rm-dot").forEach(d=>d.onclick=()=>showMonth(+d.dataset.i));
 
-/* правила */
-const rowOf=ym=>R.find(r=>r.ym===ym);
-const sp=C.split, pc=v=>fm(v*100)+"%";
-const RULES=[["Минималки — святое",`Все ${D.debts.length} минималок (${byn(T.min)}) платятся автоплатежом в день зарплаты, до любых трат. Пока идёт Стас, фонда нет (всё в дедлайн); после его закрытия фонд сначала доводится до месячных минималок — ${byn(C.buffer_target)} (к концу ${mgen("2027-01")} там ${byn(rowOf("2027-01").buffer)}, к концу ${mgen("2027-02")} — ${byn(rowOf("2027-02").buffer)}), потом растёт до 6 месяцев жизни (${byn(D.emergency_full)}).`],
-["Стас — до 31 января","В ноябре–январе все свободные деньги идут Стасу, в день зарплаты. Платёж по $ покупается сразу."],
-["Одна цель за раз, линии доступа первыми","Допплата идёт в одну цель. Сначала возобновляемые линии (овердрафт, карты, рассрочки) по ставке, потом кредиты-«трубы». Закрытая линия закрывается физически."],
-["Ни одного нового долга","Кредит, рассрочка, овердрафт, заём у людей — исключены на весь период. Единственное обсуждаемое исключение — рефинансирование напрямую кредиторам после закрытия Стаса (раздел 10)."],
-["Платить себе первым",`С февраля ${byn(C.habit)}/мес в страховой фонд фиксированно, как «налог на будущего себя». После кредитов — вся свободная сумма по формуле: фонд → поездка → квартира ${pc(sp.apartment)} / свадьба ${pc(sp.wedding)} / личные ${pc(sp.personal)}.`],
-["Деньги видимы и недоступны",`Карманные ${byn(pocketTotal)} в месяц (${byn(pocketTotal/4)} в неделю) на отдельной карте с блокировкой MCC 7995. Накопления — в другом банке, без карты.`],
-["Разовые деньги делятся","Подработка, возврат, премия: 70% в цель плана, 30% можно потратить."],
-["Срыв не трогает платежи","Если срыв случился, он покрывается карманными и бытом следующих месяцев и сдвигает цели, но не минималки и не Стаса."],
-["Раз в неделю — прозрачность","10 минут с доверенным человеком: остаток карманных и операции. Раз в месяц — сверка с планом."]];
-$("rulesBox").innerHTML=RULES.map((r,i)=>`<div class="rule"><div class="no">${i+1}</div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("");
-
-/* методы */
-const SD={avalanche:["Лавина","Сначала самая высокая ставка"],snowball:["Снежный ком","Сначала самый маленький остаток"],payment:["Самая большая минималка","Твоя идея: быстрее снять нагрузку"],cfi:["Индекс денежного потока","Остаток ÷ минималка, меньшие первыми"],access:["Линии доступа первыми","Сначала овердрафт, карты, рассрочки (по ставке), потом кредиты — ВЫБРАНО"]};
-let t=`<table><tr><th>Метод</th><th>Идея</th><th class="n">Проценты с ноября</th><th class="n">Δ к лавине</th><th>Кредиты закрыты</th><th class="n">Линий доступа открыто: конец марта / апреля (всего ${revN})</th><th>Последняя линия закрыта</th></tr>`;
-const av=D.strategies.avalanche.interest;
-["avalanche","snowball","payment","cfi","access"].forEach(k=>{
- const s=D.strategies[k];
- t+=`<tr class="${k==="access"?"sel":""}"><td><b>${SD[k][0]}</b></td><td>${SD[k][1]}</td><td class="n">${byn(s.interest)} · ${usd(s.interest/USD)}</td><td class="n">${s.interest-av>=0?"+":""}${fm(s.interest-av)} BYN</td><td>${mname(s.closed)}</td><td class="n">${s.rev_open_mar} / ${s.rev_open_apr}</td><td>${mname(s.rev_last)}</td></tr>`;
-});
-t+="</table>";$("stratTable").innerHTML=t;
-const sv_=Object.values(D.strategies).map(x=>x.interest);
-$("spread").textContent=`от ${byn(Math.min(...sv_))} до ${byn(Math.max(...sv_))} процентов за период`;
-$("methodLead").innerHTML=`Я прогнал одинаковый денежный поток (твои зарплаты, бюджет, Стас в январе, минималки всегда) через пять методов. Разница по процентам крошечная: почти все ставки лежат в узком диапазоне, и все кредиты закрываются в течение ${openMonths(base.credits_closed)} месяцев. Значит, решающим становится другой критерий — риск.`;
-const acc=D.strategies.access, avl=D.strategies.avalanche, pay=D.strategies.payment, cfi=D.strategies.cfi, snw=D.strategies.snowball;
-$("stratNote").innerHTML=`<b>Почему «линии доступа первыми».</b> Лавина дешевле всего, но выбранный порядок обходится всего на ${fm(acc.interest-av)} BYN (${usd((acc.interest-av)/USD)}) дороже за весь период — это цена риска. Взамен к концу марта открытыми остаются ${acc.rev_open_mar} линии доступа (при лавине — ${avl.rev_open_mar}), а к концу апреля ${acc.rev_open_apr} (при лавине — ${avl.rev_open_apr}): последняя линия закрывается в ${mloc(acc.rev_last)} вместо ${mgen(avl.rev_last)}. Топливо для срыва исчезает раньше. «Самая большая минималка» и CFI дороже лавины на ${fm(pay.interest-av)}–${fm(cfi.interest-av)} BYN (≈ ${usd((pay.interest-av)/USD)}) и такого эффекта не дают; снежный ком по проценту почти равен выбранному (${fm(snw.interest-acc.interest)} BYN разницы), но линии доступа закрывает хуже. Точный порядок закрытия — в плане по месяцам.`;
-
-/* план по месяцам */
-const sel=$("msel");
-R.forEach((r,i)=>{const o=document.createElement("option");o.value=i;o.textContent=mname(r.ym);sel.appendChild(o);});
-let cur_i=0;
-const CK=JSON.parse((()=>{try{return localStorage.getItem("audit_checks")||"{}"}catch(e){return "{}"}})());
-function saveCK(){try{localStorage.setItem("audit_checks",JSON.stringify(CK))}catch(e){}}
-function stage(ym){
- if(ym<="2027-01") return ["Этап 1 · Стас (дедлайн 31.01)","p-red"];
- if(ym<=base.credits_closed) return ["Этап 2 · Блиц по кредитам","p-orange"];
- if(R.find(r=>r.ym===ym).to_apartment<=0) return ["Этап 3 · Фонд и поездка","p-blue"];
- return ["Этап 4 · Квартира / свадьба / личные","p-green"];
+function animateNum(el,to,unit){
+  const from=0, dur=650, t0=performance.now();
+  function step(t){
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    const v=Math.round(from+(to-from)*e);
+    el.textContent = unit==="byn" ? fmtSp(v)+" BYN" : "$"+fmtSp(v);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
-function monthNote(i){
- const r=R[i], p=i>0?R[i-1]:null; const ev=[];
- if(r.ym==="2026-11") ev.push(["w","Критическое окно Стаса: ноябрь–январь. Любой срыв в этих месяцах ставит под удар дедлайн (раздел 8). Платежи — в первый час после зарплаты."]);
- if(r.oneoffs.length&&r.ym==="2026-12") ev.push(["w",`${r.oneoffs[0][0]}: бюджет ${byn(r.oneoffs[0][1])} фиксирован, на праздники не занимаем.`]);
- if(r.ym===base.stas_closed) ev.push(["n","31.01 — дедлайн Стаса. После последнего платежа сохрани подтверждение. Остаток месяца идёт в страховой фонд."]);
- if(r.ym==="2027-02") ev.push(["n","Старт блица. После Стаса все свободные деньги идут в кредиты. "+(r.oneoffs.length?`Разово: ${r.oneoffs.map(o=>o[0]+" — "+byn(o[1])).join("; ")}.`:"")]);
- if(p){ const closed=Object.keys(r.bal).filter(n=>r.bal[n]<=0.5&&p.bal[n]>0.5); if(closed.length) ev.push(["n","Закрываются: "+closed.join(", ")+". Закрыть договор и обнулить лимит/сдать карту."]); }
- if(r.ym===base.credits_closed) ev.push(["n","Последние кредиты закрыты. Дальше платежей по долгам нет: освободившиеся минималки идут в фонд, поездку и цели."]);
- if(p && r.travel>=D.travel_target-1 && p.travel<D.travel_target-1) ev.push(["n",`Копилка на поездку набрана (${usd(D.travel_target/USD)}) — можно бронировать.`]);
- return ev.map(e=>`<div class="${e[0]==="w"?"warn-strip":"note-strip"}">${e[1]}</div>`).join("");
+
+// ---- переключатель месяцев ----
+const months=Array.from(document.querySelectorAll(".month"));
+const sel=document.getElementById("msel"),mc=document.getElementById("mcount");
+let cur=0;
+function showMonth(i){ cur=Math.max(0,Math.min(months.length-1,i));
+  months.forEach((m,j)=>m.classList.toggle("show",j===cur)); sel.value=cur; mc.textContent=(cur+1)+" / "+months.length; updatePaid();
+  const m=months[cur];
+  m.querySelectorAll(".hval[data-val]").forEach(el=>animateNum(el,+el.dataset.val,el.dataset.unit));
+  const fillEl=m.querySelector(".fill"); if(fillEl){ const w=fillEl.dataset.w; requestAnimationFrame(()=>{fillEl.style.width="0%"; requestAnimationFrame(()=>fillEl.style.width=w+"%");}); }
+  const rm=D.roadmap[cur];
+  rmTrack.querySelectorAll(".rm-dot").forEach((d,j)=>d.classList.toggle("cur",j===cur));
+  rmTrack.querySelectorAll(".rm-dot").forEach((d,j)=>d.classList.toggle("done",D.roadmap[j].prog>=99.5));
+  document.getElementById("rmFill").style.width=((cur)/(months.length-1)*100)+"%";
+  jPct.textContent=rm.prog+"%";
+  drawSavings(m,cur);
 }
-function renderMonth(i){
- cur_i=Math.max(0,Math.min(R.length-1,i)); sel.value=cur_i;
- $("mcount").textContent=(cur_i+1)+" / "+R.length;
- const r=R[cur_i], pr=cur_i>0?R[cur_i-1]:null, st=stage(r.ym);
- const credUsd=r.credits_total/USD, stasLeft=r.stas_left;
- const savTot=r.buffer+r.travel+r.apartment+r.wedding+r.personal;
- let html=`<div class="mhead"><div class="mtitle">${mname(r.ym)}</div><span class="pill ${st[1]}">${st[0]}</span></div>`;
- html+=monthNote(cur_i);
- html+=`<div class="kpis">`+[
-  ["Кредиты после платежей",byn(r.credits_total),usd(credUsd),"var(--red)"],
-  ["Долг Стасу",usd(stasLeft),r.stas_usd>0.5?`платёж ${usd(r.stas_usd)}`:"закрыт","var(--blue)"],
-  ["Минималки в месяце",byn(r.mins),`проценты начислено ${byn(r.interest)}`,"var(--yellow)"],
-  ["Накоплено",byn(savTot),usd(savTot/USD),"var(--violet)"]].map(k=>`<div class="kpi" style="--dot:${k[3]}"><div class="lab">${k[0]}</div><div class="val">${k[1]}</div><div class="note">${k[2]}</div></div>`).join("")+`</div>`;
- /* таблица */
- const rowsHtml=[]; const key=(n)=>`${r.ym}|${n}`;
- const item=(label,val,opts={})=>{const k=key(label);return `<tr class="item${CK[k]?" done":""}"><td><input type="checkbox" data-k="${k}"${CK[k]?" checked":""}><span class="tl">${label}</span>${opts.rt?`<span class="rt">${opts.rt}</span>`:""}</td><td class="num">${val}${opts.tag?`<span class="tag">${opts.tag}</span>`:""}</td></tr>`;};
- const grp=(l,v)=>`<tr class="grp"><td>${l}</td><td class="num">${v}</td></tr>`;
- const rateOf={}; D.debts.forEach(d=>rateOf[d.name]=d.rate);
- const minsList=Object.keys(r.pays).filter(n=>r.pays[n]-r.extra[n]>0.5).sort((a,b)=>(r.pays[b]-r.extra[b])-(r.pays[a]-r.extra[a]));
- let tb=minsList.length?grp(`Обязательное: минималки · ${minsList.length}`,byn(r.mins)):grp("Долги","платежей нет ✓");
- minsList.forEach(n=>{const closes=r.bal[n]<=0.5&&(!pr||pr.bal[n]>0.5);tb+=item(n,byn(r.pays[n]-r.extra[n]),{rt:rateOf[n]+"%",tag:closes?"✓":""});});
- const exList=Object.keys(r.extra).filter(n=>r.extra[n]>0.5).sort((a,b)=>r.extra[b]-r.extra[a]);
- if(exList.length){const ex=exList.reduce((s,n)=>s+r.extra[n],0);tb+=grp("Допплата (блиц)",byn(ex));exList.forEach(n=>{const closes=r.bal[n]<=0.5;tb+=item("→ "+n,byn(r.extra[n]),{tag:closes?"✓ закрыт":""});});}
- if(r.stas_usd>0.5||pr&&pr.stas_left>0.5){ if(r.stas_usd>0.5){tb+=grp("Стас",`${byn(r.stas_byn)} (${usd(r.stas_usd)})`);tb+=item(`Долг Стасу ${fm(r.stas_usd)}$ по графику на счет в бнб банке`,usd(r.stas_usd),{tag:r.stas_left<=0.01?"✓":""});}}
- tb+=grp("Быт",byn(r.util+r.food+r.pocket+r.advance));
- tb+=item("Еда",byn(r.food));tb+=item("Коммуналка + интернет и телефон",byn(r.util));tb+=item(`Карманные (отдельная карта), из них аванс 25-го ${fm(r.advance)}`,byn(r.pocket+r.advance));
- if(r.oneoffs.length){tb+=grp("Разовое",byn(r.oneoffs.reduce((s,o)=>s+o[1],0)));r.oneoffs.forEach(o=>tb+=item(o[0],byn(o[1])));}
- const sv=[["Страховой фонд",r.to_buffer],["Копилка: поездка",r.to_travel],["Копилка: квартира",r.to_apartment],["Копилка: свадьба",r.to_wedding],["Копилка: личные",r.to_personal]].filter(x=>x[1]>0.5);
- if(sv.length){tb+=grp("Копим",byn(sv.reduce((s,x)=>s+x[1],0)));sv.forEach(x=>tb+=item(x[0],byn(x[1])));}
- const rest=r.leftover_unallocated; tb+=`<tr class="rest"><td>Остаток</td><td class="num">${rest<1?"+0":"+"+fm(rest)} BYN</td></tr>`;
- /* чеклист дня зарплаты */
- const L=[];
- L.push(minsList.length?`Зарплата ${byn(r.income)} пришла → до любых трат: платежи по долгам (${minsList.length} минималок = ${byn(r.mins)})`:`Зарплата ${byn(r.income)} пришла → долгов нет, платежей нет: сразу распределить по копилкам`);
- if(r.stas_usd>0.5) L.push(`Купить ${usd(r.stas_usd)} и перевести Стасу (${byn(r.stas_byn)} по ${D.stas_rate})`);
- exList.forEach(n=>L.push(`Допплата ${n}: +${byn(r.extra[n])}${r.bal[n]<=0.5?" — кредит закрыт: оформить закрытие, лимит/карту обнулить":""}`));
- r.oneoffs.forEach(o=>L.push(`Оплатить сразу: ${o[0]} — ${byn(o[1])}`));
- sv.forEach(x=>L.push(`Автоперевод в «${x[0].replace("Копилка: ","")}» (другой банк): ${byn(x[1])}`));
- L.push(`Карманные ${byn(r.pocket+r.advance)} на отдельную карту — по ${fm((r.pocket+r.advance)/4)} BYN в неделю; основную карту не держать с остатком`);
- const cl=L.map((x,j)=>{const k=key("todo"+j);return `<li><input type="checkbox" data-k="${k}"${CK[k]?" checked":""}><span>${x}</span></li>`;}).join("");
- html+=`<div class="mgrid"><div class="card" style="margin-top:0"><table class="ptab">${tb}</table></div><div class="card" style="margin-top:0"><h3>День зарплаты — что сделать</h3><ul class="chk-list">${cl}</ul></div></div>`;
- $("month").innerHTML=html;
- $("month").querySelectorAll("input[data-k]").forEach(c=>c.onchange=()=>{if(c.checked)CK[c.dataset.k]=1;else delete CK[c.dataset.k];saveCK();const tr=c.closest("tr");if(tr)tr.classList.toggle("done",c.checked);});
-}
-sel.onchange=()=>renderMonth(+sel.value);
-$("prev").onclick=()=>renderMonth(cur_i-1);$("next").onclick=()=>renderMonth(cur_i+1);
-renderMonth(0);
-
-/* допущения */
-const oneoffTxt=Object.entries(C.oneoffs).map(([ym,l])=>l.map(o=>`${o[0]} ${byn(o[1])} (${mname(ym).toLowerCase()})`).join(", ")).join("; ");
-$("assumeList").innerHTML=[
- `Минималки = октябрьские платежи из твоей таблицы (всего ${byn(T.min)}/мес). Если банк по какому-то кредиту требует больше — скажи.`,
- `Остатки кредитов — из твоей модели на конец октября; проценты начисляются ставка/12 в начале месяца, платёж после.`,
- `Зарплата: ноябрь ${byn(C.income_nov)} (твоя таблица), дальше ${byn(T.income)}; «аванс 25-го» (${byn(C.advance)}) — часть этой зарплаты, а не добавка к ней: он входит в карманные, которые целиком оплачиваются из зарплаты.`,
- `Курс ${dc(USD)} BYN/$ для зарплаты и отображения; Стас платится по ${String(D.stas_rate).replace(".",",")}. Остаток долга Стасу после октября — ${usd(stasStartUsd)}.`,
- `Разовые траты (из твоих сообщений): ${oneoffTxt}.`,
- `Бюджет: коммуналка+интернет ${fm(C.util)}, еда ${fm(C.food_early)} (ноя–янв) → ${fm(C.food)}, карманные ${fm(C.pocket_blitz)}+${fm(C.advance)} (после закрытия кредитов ${fm(C.pocket_free)}+${fm(C.advance)}).`,
- `Проценты на накопления, инфляция и рост цен на жильё в расчёт не входят (консервативно).`,
- `Траты на саму летнюю поездку не моделируются: она финансируется отдельной копилкой ${usd(D.travel_target/USD)}.`,
- `Дедлайн Стаса считается как «всё погашено до конца января»; конкретный день платежа в январе — твой, по графику Стаса.`].map(x=>`<li>${x}</li>`).join("");
-
-/* графики */
-function lineChart(elId,legId,labels,series,opt){
- const el=$(elId); const W=560,H=240,pl=48,pr=16,pt=16,pb=28;
- const all=series.flatMap(s=>s.vals); const mx=Math.max(1,...all);
- const step=(()=>{const p=Math.pow(10,Math.floor(Math.log10(mx/4)));for(const k of [1,2,2.5,5,10]) if(k*p>=mx/4) return k*p;return 10*p;})();
- const top=Math.ceil(mx/step)*step; const n=labels.length;
- const X=i=>pl+(W-pl-pr)*(n>1?i/(n-1):.5), Y=v=>pt+(H-pt-pb)*(1-v/top);
- const fmt=v=>v>=1000?(v/1000).toFixed(v%1000?1:0).replace(".0","")+"k":String(Math.round(v));
- let g="";
- for(let v=0;v<=top+1e-6;v+=step) g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${fmt(v)}</text>`;
- labels.forEach((l,i)=>{if(i%2===0||i===n-1) g+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${l}</text>`;});
- g+=`<line class="hv" x1="0" x2="0" y1="${pt}" y2="${H-pb}" stroke="var(--ink)" opacity="0"/>`;
- series.forEach(s=>{
-  g+=`<polyline fill="none" stroke="${s.color}" stroke-width="2.4" stroke-linejoin="round" points="${s.vals.map((v,i)=>X(i)+","+Y(v)).join(" ")}"/>`;
-  s.vals.forEach((v,i)=>{g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="3.2" fill="${s.color}" stroke="var(--surface)" stroke-width="1.4"/>`;});
-  const lv=s.vals[s.vals.length-1]; if(lv>0.5) g+=`<text x="${X(n-1)}" y="${Y(lv)-8}" text-anchor="end" font-size="11" font-weight="700" fill="${s.color}">${opt.lastLabel?opt.lastLabel(lv):fmt(lv)}</text>`;
- });
- const cw=(W-pl-pr)/(n>1?n-1:1);
- labels.forEach((l,i)=>{g+=`<rect class="ht" data-i="${i}" x="${X(i)-cw/2}" y="${pt}" width="${cw}" height="${H-pt-pb}" fill="transparent"/>`;});
- el.innerHTML=`<svg viewBox="0 0 ${W} ${H}">${g}</svg><div class="tip"></div>`;
- $(legId).innerHTML=series.map(s=>`<span><i style="background:${s.color}"></i>${s.name}</span>`).join("");
- const svg=el.querySelector("svg"),tip=el.querySelector(".tip"),hv=el.querySelector(".hv");
- const show=i=>{hv.setAttribute("x1",X(i));hv.setAttribute("x2",X(i));hv.setAttribute("opacity",".3");
-  tip.innerHTML=`<b>${labels[i]}</b>`+series.map(s=>`<div><span style="color:${s.color}">●</span><span>${s.name}</span><span>${opt.tipFmt?opt.tipFmt(s.vals[i]):fm(s.vals[i])}</span></div>`).join("");
-  tip.style.display="block";const sr=svg.getBoundingClientRect(),cr=el.getBoundingClientRect();
-  const px=(X(i)/W)*sr.width+(sr.left-cr.left);let lx=px>cr.width*.55?px-tip.offsetWidth-10:px+10;lx=Math.max(0,Math.min(lx,cr.width-tip.offsetWidth));
-  tip.style.left=lx+"px";tip.style.top="0px";};
- el.querySelectorAll(".ht").forEach(r=>{r.addEventListener("pointerenter",()=>show(+r.dataset.i));r.addEventListener("pointermove",()=>show(+r.dataset.i));});
- svg.addEventListener("pointerleave",()=>{tip.style.display="none";hv.setAttribute("opacity","0");});
-}
-const labs=["конец окт"].concat(R.map(r=>mshort(r.ym)));
-const debtCred=[T.bal/USD].concat(R.map(r=>r.credits_total/USD));
-const debtStas=[D.stas_start_usd].concat(R.map(r=>r.stas_left));
-lineChart("ch1","leg1",labs,[{name:"Кредиты, $",color:"#d9622c",vals:debtCred},{name:"Стас, $",color:"#2a78d6",vals:debtStas},{name:"Всего, $",color:"#0b0b0b",vals:debtCred.map((v,i)=>v+debtStas[i])}],{tipFmt:v=>"$"+fm(v),lastLabel:v=>"$"+fm(v)});
-lineChart("ch2","leg2",R.map(r=>mshort(r.ym)),[{name:"Минималки",color:"#c98500",vals:R.map(r=>r.mins)},{name:"Проценты начислено",color:"#c8382f",vals:R.map(r=>r.interest)}],{tipFmt:v=>fm(v)+" BYN",lastLabel:v=>fm(v)});
-lineChart("ch3","leg3",R.map(r=>mshort(r.ym)),[{name:"Страховой фонд",color:"#78766f",vals:R.map(r=>r.buffer)},{name:"Поездка",color:"#d9622c",vals:R.map(r=>r.travel)},{name:"Квартира",color:"#2a78d6",vals:R.map(r=>r.apartment)},{name:"Свадьба",color:"#4a3aa7",vals:R.map(r=>r.wedding)},{name:"Личные",color:"#c98500",vals:R.map(r=>r.personal)}],{tipFmt:v=>fm(v)+" BYN",lastLabel:v=>fm(v)});
-
-/* стресс-тесты */
-let s=`<table><tr><th>Сценарий</th><th>Стас закрыт</th><th>Кредиты закрыты</th><th class="n">Проценты</th><th class="n">Накоплено к декабрю 2027 (Δ к базе)</th><th>Итог</th></tr>`;
-s+=`<tr class="sel"><td><b>База (без срывов)</b></td><td>${mname(base.stas_closed)}</td><td>${mname(base.credits_closed)}</td><td class="n">${byn(base.total_interest)}</td><td class="n">${byn(base.savings_end)}</td><td><span class="pill p-green">план</span></td></tr>`;
-D.stress.forEach(x=>{const late=x.stas_closed>base.stas_closed; s+=`<tr><td>${x.label}</td><td class="${late?"bad":""}">${mname(x.stas_closed)}${late?" — дедлайн сорван":""}</td><td>${mname(x.credits_closed)}</td><td class="n">+${fm(x.d_interest)} BYN</td><td class="n">${fm(base.savings_end+x.d_savings)} BYN (${fm(x.d_savings)})</td><td>${late?'<span class="pill p-red">критично</span>':'<span class="pill p-orange">дороже, но в плане</span>'}</td></tr>`;});
-s+="</table>";$("stressTable").innerHTML=s;
-
-/* сравнение */
-const nb=D.neutral;
-let c=`<table><tr><th>Показатель</th><th>Текущий план (основной сайт)</th><th>Новый план</th><th>Новый при том же бюджете быта</th></tr>`;
-const crow=(a,b,c1,d)=>c+=`<tr><td>${a}</td><td>${b}</td><td><b>${c1}</b></td><td>${d}</td></tr>`;
-crow("Свободен от кредитов",mname(cur.credits_closed),mname(base.credits_closed),mname(nb.credits_closed));
-crow("Стас закрыт",mname(cur.stas_closed),mname(base.stas_closed),mname(nb.stas_closed));
-crow("Проценты с ноября 2026",`${byn(cur.interest)} · ${usd(cur.interest/USD)}`,`${byn(base.total_interest)} · ${usd(base.total_interest/USD)}`,`${byn(nb.total_interest)} · ${usd(nb.total_interest/USD)}`);
-const pools=[["Страховой фонд / резерв","—",last.buffer],["Квартира",cur.apartment,last.apartment],["Свадьба",cur.wedding,last.wedding],["Поездка",cur.travel,last.travel],["Личные накопления",cur.personal,last.personal]];
-crow("Накоплено к декабрю 2027 (всего)",usd(cur.savings/USD),usd(base.savings_end/USD),usd(nb.savings_end/USD));
-pools.forEach(p=>crow(p[0]+" к декабрю 2027",p[1]==="—"?"— (мини-резерв входит в «личные»)":usd(p[1]/USD),usd(p[2]/USD),"—"));
-const curOpen=openMonths(cur.credits_closed);
-crow("Месяцев с открытыми кредитами (с ноября)",`${curOpen} (до ${mgen(cur.credits_closed)})`,`${openMonths(base.credits_closed)} (до ${mgen(base.credits_closed)})`,`${openMonths(nb.credits_closed)} (до ${mgen(nb.credits_closed)})`);
-crow("Правила против срыва и закрытие линий","нет","есть (разделы 3 и 7)","есть");
-$("compareTable").innerHTML=c+"</table>";
-const dInt=(cur.interest-base.total_interest), earlier=monthsLeft(base.credits_closed,cur.credits_closed);
-const firstMinsZero=R.find(r=>r.mins<=0.5);
-const worse=pools.filter(p=>p[1]!=="—"&&p[2]<p[1]), better=pools.filter(p=>p[1]!=="—"&&p[2]>p[1]);
-$("wins").innerHTML=[`<b>Свобода раньше:</b> кредиты закрыты на ${earlier} мес. раньше (в ${mloc(base.credits_closed)} вместо ${mgen(cur.credits_closed)})${firstMinsZero?`, платежей по долгам нет с ${mgen(firstMinsZero.ym)}`:""}.`,
- `<b>Проценты:</b> на ${byn(dInt)} (${usd(dInt/USD)}) меньше, чем в текущем плане.`,
- `<b>Страховой фонд ${usd(last.buffer/USD)}</b> — реальная подушка вместо мини-резерва внутри личных накоплений.`,
- ...better.map(p=>`<b>${p[0]}:</b> ${usd(p[2]/USD)} вместо ${usd(p[1]/USD)} (+${usd((p[2]-p[1])/USD)}).`),
- `<b>Меньше соблазнов:</b> линии доступа закрываются раньше, деньги в день зарплаты уходят автоматически.`].map(x=>`<li>${x}</li>`).join("");
-const trvDone=R.find(r=>r.travel>=D.travel_target-1);
-$("costs").innerHTML=[...worse.map(p=>`<b>${p[0]}:</b> ${usd(p[2]/USD)} вместо ${usd(p[1]/USD)} (−${usd((p[1]-p[2])/USD)}).`),
- `<b>Накоплений «параллельно» почти нет:</b> с февраля до закрытия кредитов в фонд идёт только ${byn(C.habit)}/мес, остальное — в кредиты; цели стартуют после ${mgen(base.credits_closed)}.`,
- `<b>Строже быт:</b> карманные ${byn(pocketTotal)} в месяц, еда ${fm(C.food_early)}–${fm(C.food)} BYN, без «развлечений» отдельной строкой до закрытия кредитов.`,
- `<b>Поездка — только цель, без продолжения:</b> копилка останавливается на ${usd(D.travel_target/USD)}${trvDone?` (набрана в ${mloc(trvDone.ym)})`:""}, дальше деньги идут в квартиру/свадьбу/личные.`,
- (()=>{const dn=nb.savings_end-cur.savings;return `<b>При том же быте, что в текущем плане,</b> итог на ${usd(Math.abs(dn)/USD)} ${dn>=0?"выше":"ниже"} (${usd(nb.savings_end/USD)} против ${usd(cur.savings/USD)}), зато кредиты закрыты в ${mloc(nb.credits_closed)}, а не в ${mloc(cur.credits_closed)}: выигрыш — во времени, процентах и защите от срыва, а не в сумме накоплений.`;})()].map(x=>`<li>${x}</li>`).join("");
-$("oRefi").innerHTML=`<b>Рефинансирование (один кредит под ~${D.refi.rate}% вместо ${D.debts.length}).</b> Верхняя граница выгоды в моей модели — ${byn(D.refi.saving)} (≈ ${usd(D.refi.saving/USD)}) за весь период, при условии что ставка станет ${D.refi.rate}% без комиссий и страховок; реально меньше. Не включено в цифры: нужна новая заявка, часть кредитов оформлена на Машу и маму, а деньги на руках — самый рискованный момент для срыва. Единственная допустимая форма — банк платит кредиторам напрямую, и только после закрытия Стаса. Условия банков я не проверял — это вопрос к 2–3 банкам в феврале.`;
-$("oAval").innerHTML=`<b>Чистая лавина.</b> Дешевле выбранного порядка на ${fm(acc.interest-av)} BYN (${usd((acc.interest-av)/USD)}), но оставляет линии доступа открытыми дольше: ${avl.rev_open_apr} к концу апреля вместо ${acc.rev_open_apr}, последняя закрывается в ${mloc(avl.rev_last)} вместо ${mgen(acc.rev_last)} (раздел 4).`;
-</script></body></html>
+sel.onchange=()=>showMonth(+sel.value);
+document.getElementById("prev").onclick=()=>showMonth(cur-1);
+document.getElementById("next").onclick=()=>showMonth(cur+1);
+document.getElementById("reset").onclick=()=>{ const m=months[cur];
+  m.querySelectorAll(".chk[data-k]").forEach(c=>{ delete CK[c.dataset.k]; applyChk(c); });
+  localStorage.setItem("df_checks_audit",JSON.stringify(CK)); updatePaid(); };
+showMonth(0);
+</script>
+</body></html>
