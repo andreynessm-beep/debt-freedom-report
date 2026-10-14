@@ -168,6 +168,35 @@ h1{font-size:26px;margin:0 0 2px;letter-spacing:-.4px} .sub{margin:0 0 18px;colo
 .dt thead tr.h2 th{border-bottom:1px solid var(--border2)}
 .foot{color:var(--muted);font-size:12px;margin:18px 0 0}
 .sech.plan{margin:26px 0 12px}
+/* путь к целям */
+.journey{padding:16px 20px 14px;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 26px -16px var(--shadow)}
+.journey-top{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.jt-sub{font-size:12.5px;color:var(--ink2);margin-right:auto;padding:2px 10px;border-radius:20px;background:var(--tint2);font-weight:600}
+.rm-years{display:flex;margin:6px 0 2px}
+.rm-yr{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px;border-left:2px solid var(--grid);padding-left:6px}
+.rm-yr:first-child{border-left-color:transparent;padding-left:0}
+.rm-track{height:44px;margin-top:4px}
+.rm-line{background:repeating-linear-gradient(90deg,var(--grid) 0 6px,transparent 6px 10px);height:3px}
+.rm-fill{background:linear-gradient(90deg,var(--aqua),var(--good));height:4px}
+.rm-dot i{width:10px;height:10px;background:var(--surface);border:2px solid #c9c7c0;transition:transform .2s,box-shadow .2s,background .2s}
+.rm-dot.past i{background:var(--good);border-color:var(--good)}
+.rm-dot.future i{background:var(--surface);border-color:#c9c7c0}
+.rm-dot.today i{width:14px;height:14px;background:var(--orange);border-color:var(--surface);box-shadow:0 0 0 3px rgba(217,98,44,.3)}
+.rm-dot.cur i{transform:scale(1.5);border-color:var(--blue);background:var(--blue);box-shadow:0 0 0 5px rgba(42,120,214,.22)}
+.rm-now{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.rm-dot.past .rm-mile{opacity:1}
+.rm-dot.future .rm-mile{opacity:.55;filter:grayscale(.6)}
+.rm-mile{top:-17px;font-size:13px}
+.rm-dot.today .rm-mile{top:30px}
+.rm-legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);margin:2px 0 8px;flex-wrap:wrap}
+.rm-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:-1px;border:2px solid #c9c7c0;background:var(--surface)}
+.rm-legend .lg-past{background:var(--good);border-color:var(--good)} .rm-legend .lg-today{background:var(--orange);border-color:var(--orange)} .rm-legend .lg-sel{background:var(--blue);border-color:var(--blue)}
+.rm-chips{display:flex;flex-wrap:wrap;gap:8px}
+.rm-chip{font-size:12.5px;padding:5px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);color:var(--ink);cursor:pointer;font-family:inherit}
+.rm-chip small{color:var(--muted);font-weight:600;margin-left:3px}
+.rm-chip.past{background:rgba(12,163,12,.10);border-color:rgba(12,163,12,.35)}
+.rm-chip.future{opacity:.8}
+.rm-chip:hover{border-color:var(--blue)}
 /* месяц */
 .mph.pf{background:rgba(120,118,111,.18);color:var(--muted)}
 .hero{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:16px}
@@ -205,8 +234,11 @@ h1{font-size:26px;margin:0 0 2px;letter-spacing:-.4px} .sub{margin:0 0 18px;colo
 <h1>Мой выход из долгов · Аудит</h1>
 <p class="sub">Андрей · Окт 2026 → Дек 2030 · зарплата <b style="color:var(--ink)">$4 500</b> · курс 3.0</p>
 <div class="journey">
-  <div class="journey-top"><span class="jt-lab">Путь к целям</span><span class="jt-pct" id="jPct">0%</span></div>
+  <div class="journey-top"><span class="jt-lab">Путь к целям</span><span class="jt-sub" id="jSub"></span><span class="jt-pct" id="jPct">0%</span></div>
+  <div class="rm-years" id="rmYears"></div>
   <div class="rm-track" id="rmTrack"></div>
+  <div class="rm-legend"><span><i class="lg-past"></i>прошло</span><span><i class="lg-today"></i>сегодня</span><span><i class="lg-future"></i>впереди</span><span><i class="lg-sel"></i>выбранный месяц</span></div>
+  <div class="rm-chips" id="rmChips"></div>
 </div>
 <div class="mswitch">
   <button class="mbtn" id="prev">‹</button>
@@ -878,8 +910,19 @@ document.querySelectorAll(".chk[data-k]").forEach(c=>{
 // ---- дорожная карта пути ----
 const rmTrack=document.getElementById("rmTrack"), jPct=document.getElementById("jPct");
 const fmtSp=n=>Math.round(n).toLocaleString("ru-RU").replace(/,/g," ");
-rmTrack.innerHTML='<div class="rm-line"></div><div class="rm-fill" id="rmFill" style="width:0%"></div>'+
-  D.roadmap.map((r,i)=>`<div class="rm-dot p${r.phase}" data-i="${i}"><i></i>${r.milestones.map(m=>`<span class="rm-mile" title="${m[1]}">${m[0]}</span>`).join("")}<span class="rm-tip">${r.label} · ${r.prog}%</span></div>`).join("");
+const NOWK=(()=>{ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); })();
+const nI=D.roadmap.length, ti0=D.roadmap.findIndex(r=>r.ym===NOWK);
+const todayI=ti0>=0?ti0:(NOWK<D.roadmap[0].ym?0:nI-1);
+document.getElementById("jSub").textContent="сегодня: "+D.roadmap[todayI].label;
+// годы над дорожкой
+(()=>{ const yrs={}; D.roadmap.forEach(r=>{ const y=r.ym.slice(0,4); yrs[y]=(yrs[y]||0)+1; });
+  document.getElementById("rmYears").innerHTML=Object.entries(yrs).map(([y,c])=>`<span class="rm-yr" style="flex:${c}">${y}</span>`).join(""); })();
+rmTrack.innerHTML='<div class="rm-line"></div><div class="rm-fill" style="width:'+((todayI+0.5)/nI*100)+'%"></div>'+
+  D.roadmap.map((r,i)=>{ const st=i<todayI?"past":(i===todayI?"today":"future");
+    return `<div class="rm-dot p${r.phase} ${st}" data-i="${i}"><i></i>${st==="today"?'<span class="rm-now">сегодня</span>':''}${r.milestones.map(m=>`<span class="rm-mile" title="${m[1]}">${m[0]}</span>`).join("")}<span class="rm-tip">${r.label} · ${r.prog}%</span></div>`; }).join("");
+// вехи чипами
+document.getElementById("rmChips").innerHTML=D.roadmap.map((r,i)=>r.milestones.map(m=>`<button class="rm-chip ${i<=todayI?"past":"future"}" data-i="${i}"><b>${m[0]}</b> ${m[1]} <small>${r.label}</small></button>`).join("")).join("");
+document.querySelectorAll(".rm-chip").forEach(c=>c.onclick=()=>showMonth(+c.dataset.i));
 rmTrack.querySelectorAll(".rm-dot").forEach(d=>d.onclick=()=>showMonth(+d.dataset.i));
 
 function animateNum(el,to,unit){
@@ -904,8 +947,6 @@ function showMonth(i){ cur=Math.max(0,Math.min(months.length-1,i));
   const fillEl=m.querySelector(".fill"); if(fillEl){ const w=fillEl.dataset.w; requestAnimationFrame(()=>{fillEl.style.width="0%"; requestAnimationFrame(()=>fillEl.style.width=w+"%");}); }
   const rm=D.roadmap[cur];
   rmTrack.querySelectorAll(".rm-dot").forEach((d,j)=>d.classList.toggle("cur",j===cur));
-  rmTrack.querySelectorAll(".rm-dot").forEach((d,j)=>d.classList.toggle("done",D.roadmap[j].prog>=99.5));
-  document.getElementById("rmFill").style.width=((cur)/(months.length-1)*100)+"%";
   jPct.textContent=rm.prog+"%";
   drawSavings(m,cur);
 }
