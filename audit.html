@@ -906,6 +906,12 @@ function drawSavings(monthEl,cur){
 /* курс НБРБ: при каждом открытии берём официальный курс USD, пересчитываем зарплату ($4 500 × курс) будущих месяцев; прибавка (или нехватка) идёт на Фин подушку */
 const SALARY_USD=4500, FULL_BYN=13500;
 const pcF=x=>{const t=(x*100).toFixed(1).replace(".",",");return (t.endsWith(",0")?t.slice(0,-2):t)+"%";};
+// день зарплаты: 1-е число, а если оно выходной — предыдущий рабочий день (курс на него известен заранее)
+function salaryReceived(ym){
+  const [y,m]=ym.split("-").map(Number); const d=new Date(y,m-1,1);
+  while(d.getDay()===0||d.getDay()===6) d.setDate(d.getDate()-1);
+  const now=new Date(); now.setHours(0,0,0,0); return now>=d;
+}
 async function applyNbrb(){
   const badge=document.getElementById("nbrb");
   try{
@@ -916,7 +922,7 @@ async function applyNbrb(){
     const diff=Math.round(SALARY_USD*(rate-D.rate)); if(Math.abs(rate-D.rate)<1e-6) return;
     let cum=0;
     months.forEach((m,i)=>{
-      if(i<=todayI) return;                                    // прошедший и текущий месяц (зарплата уже получена) не трогаем
+      if(salaryReceived(D.roadmap[i].ym)) return;              // зарплата месяца уже получена — не трогаем, пересчитываем только будущие
       const inc=+m.dataset.income, fr=m.querySelector("tr.fundrow td.num"), rg=m.querySelector("tr.resgrp td.num");
       if(!fr) return;
       let delta=Math.floor(SALARY_USD*(rate-D.rate)*(inc/FULL_BYN)/10)*10;
