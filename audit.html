@@ -198,7 +198,7 @@ h1{font-size:26px;margin:0 0 2px;letter-spacing:-.4px} .sub{margin:0 0 18px;colo
 .rm-chip.future{opacity:.8}
 .rm-chip:hover{border-color:var(--blue)}
 /* путь к целям — упрощённый вид */
-.rm-legend,.rm-chips,.rm-now{display:none}
+.rm-legend,.rm-chips,.rm-now,.rm-tip{display:none!important}
 .journey{padding:12px 18px 10px}
 .rm-track{height:30px;margin-top:2px}
 .rm-dot i{width:7px;height:7px;border-width:1.5px}
@@ -931,7 +931,7 @@ document.getElementById("jSub").textContent="сегодня: "+D.roadmap[todayI]
   document.getElementById("rmYears").innerHTML=Object.entries(yrs).map(([y,c])=>`<span class="rm-yr" style="flex:${c}">${y}</span>`).join(""); })();
 rmTrack.innerHTML='<div class="rm-line"></div><div class="rm-fill" style="width:'+((todayI+0.5)/nI*100)+'%"></div>'+
   D.roadmap.map((r,i)=>{ const st=i<todayI?"past":(i===todayI?"today":"future");
-    return `<div class="rm-dot p${r.phase} ${st}" data-i="${i}"><i></i>${st==="today"?'<span class="rm-now">сегодня</span>':''}${r.milestones.map(m=>`<span class="rm-mile" title="${m[1]}">${m[0]}</span>`).join("")}<span class="rm-tip">${r.label} · ${r.prog}%</span></div>`; }).join("");
+    return `<div class="rm-dot p${r.phase} ${st}" data-i="${i}"><i></i>${st==="today"?'<span class="rm-now">сегодня</span>':''}${r.milestones.map(m=>`<span class="rm-mile">${m[0]}</span>`).join("")}<span class="rm-tip">${r.label} · ${r.prog}%</span></div>`; }).join("");
 // вехи чипами
 document.getElementById("rmChips").innerHTML=D.roadmap.map((r,i)=>r.milestones.map(m=>`<button class="rm-chip ${i<=todayI?"past":"future"}" data-i="${i}"><b>${m[0]}</b> ${m[1]} <small>${r.label}</small></button>`).join("")).join("");
 document.querySelectorAll(".rm-chip").forEach(c=>c.onclick=()=>showMonth(+c.dataset.i));
