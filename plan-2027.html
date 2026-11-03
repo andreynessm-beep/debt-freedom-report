@@ -1,51 +1,89 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ru"><head><meta charset="utf-8"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>План 2027</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{color-scheme:light;--bg:#ffffff;--card:#ffffff;--ink:#1d2433;--mut:#6b7280;--line:#e7e7e7;--blue:#2a6fdb;--green:#1f9d57;--orange:#e07b2c;--red:#d64545;--tint:#f1f6ff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
-.wrap{max-width:1280px;margin:0 auto;padding:20px 16px 48px}
-h1{font-size:26px;margin:0 0 4px}.sub{color:var(--mut);margin:0 0 18px}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.tile .l{color:var(--mut);font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}.tile .v{font-size:24px;font-weight:700;margin-top:4px}.tile .n{color:var(--mut);font-size:13px;margin-top:2px}
-.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}
-@media(max-width:980px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px 10px;margin-bottom:16px}
-.card h2{font-size:16px;margin:0 0 10px}
-.sc{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
-th,td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;position:sticky;top:0;background:var(--card)}
-td.m,th.m{text-align:left;font-weight:600}tr.cur td{background:var(--tint)}td.g{color:var(--green);font-weight:600}td.b{color:var(--blue);font-weight:600}td.s{font-weight:600}td.d{color:var(--red);font-weight:600}td.c{font-weight:700}
-canvas{width:100%!important;height:260px!important}
-.mh{display:flex;gap:8px;align-items:center;margin-bottom:10px}.mh button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;width:38px;height:36px;font-size:20px;cursor:pointer}.mh select{flex:1;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-size:15px;padding:0 10px}
-.ps{width:100%;font-size:14px}.ps td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line)}.ps td.a{text-align:right;font-variant-numeric:tabular-nums}
-.ps tr.h td{font-weight:700;color:#1d2433}.ps tr.h.inc td{background:#cfe0fb}.ps tr.h.cr td{background:#dbe7fb}.ps tr.h.by td{background:#fde9b8}.ps tr.h.db td{background:#f4d3e0}.ps tr.h.sv td{background:#d5ecd9}.ps tr.t td{font-weight:700;background:#eef6e9}.ps tr.z td{font-weight:700;background:#fff7dd}
-.bars{display:grid;gap:12px}.bar .t{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px}.bar .tr{height:10px;border-radius:6px;background:var(--line);overflow:hidden}.bar .f{height:100%;border-radius:6px;background:var(--green)}
+:root{color-scheme:light;--ink:#16233a;--mut:#64748b;--line:#e6ebf3;--card:#fff;--blue:#3b6fe0;--indigo:#5b4fe0;--teal:#0fa3a3;--green:#1f9d6a;--amber:#f0a020;--rose:#e0527a;--red:#d94a4a;--tint:#eef4ff}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:15px/1.5 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#e7effc 0,#f3f6fc 360px,#f4f6fb 100%) fixed}
+.wrap{max-width:1320px;margin:0 auto;padding:22px 16px 56px}
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:28px 30px 26px;color:#fff;background:linear-gradient(120deg,#1e3a8a 0%,#2f6fe0 48%,#0fb0a8 100%);box-shadow:0 18px 40px rgba(31,70,160,.28);margin-bottom:18px}
+.hero:before{content:"";position:absolute;right:-70px;top:-90px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.28),rgba(255,255,255,0) 70%)}
+.hero:after{content:"";position:absolute;left:34%;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),rgba(255,255,255,0) 70%)}
+.hero h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-.5px;position:relative}
+.hero .sub{margin:6px 0 16px;color:rgba(255,255,255,.82);position:relative}
+.chips{display:flex;flex-wrap:wrap;gap:10px;position:relative}
+.chip{background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin-bottom:20px}
+.tile{position:relative;background:var(--card);border-radius:18px;padding:16px 18px 15px;box-shadow:0 6px 22px rgba(30,60,120,.08);overflow:hidden}
+.tile:before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--ac,var(--blue))}
+.tile .ic{font-size:22px;position:absolute;right:14px;top:14px;opacity:.9}
+.tile .l{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.7px;font-weight:700}
+.tile .v{font-size:27px;font-weight:800;margin-top:6px;color:var(--ac,var(--blue));letter-spacing:-.4px}
+.tile .n{color:var(--mut);font-size:13px;margin-top:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}.hero h1{font-size:26px}}
+.card{background:var(--card);border-radius:20px;padding:18px 18px 14px;margin-bottom:18px;box-shadow:0 8px 28px rgba(30,60,120,.08)}
+.card h2{display:flex;align-items:center;gap:10px;font-size:17px;margin:0 0 14px;font-weight:800;letter-spacing:-.2px}
+.card h2:before{content:"";width:6px;height:20px;border-radius:4px;background:linear-gradient(180deg,var(--blue),var(--teal))}
+.sc{overflow-x:auto;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid #eef1f7}
+thead th{color:#475569;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:#f2f6fd;position:sticky;top:0}
+tbody tr:nth-child(even) td{background:#fafcff}
+tbody tr:hover td{background:#eef4ff}
+td.m,th.m{text-align:left;font-weight:700}
+tr.cur td{background:#e3eeff!important;box-shadow:inset 3px 0 0 var(--blue)}
+td.g{color:var(--green);font-weight:700}td.b{color:var(--blue);font-weight:700}td.s{font-weight:700}td.d{color:var(--red);font-weight:700}
+td.c{font-weight:800;color:var(--indigo)}
+.mh{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.mh button{border:0;background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff;border-radius:12px;width:42px;height:40px;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(59,111,224,.35)}
+.mh select{flex:1;height:40px;border:1.5px solid #d9e3f5;border-radius:12px;background:#fff;color:var(--ink);font-size:15px;font-weight:700;padding:0 12px}
+.ps{width:100%;font-size:14.5px;border-radius:14px;overflow:hidden}
+.ps td{text-align:left;padding:8px 14px;border-bottom:1px solid #eef1f7}
+.ps td.a{text-align:right;font-weight:600}
+.ps tr.h td{font-weight:800;color:#fff;padding:9px 14px}
+.ps tr.h.inc td{background:linear-gradient(90deg,#2f6fe0,#4d8bf0)}
+.ps tr.h.cr td{background:linear-gradient(90deg,#5b4fe0,#7a6cf0)}
+.ps tr.h.by td{background:linear-gradient(90deg,#e8960f,#f5b53a)}
+.ps tr.h.db td{background:linear-gradient(90deg,#d6406f,#ee6f93)}
+.ps tr.h.sv td{background:linear-gradient(90deg,#14916a,#34b98a)}
+.ps tr.t td{font-weight:800;background:#16233a;color:#fff;padding:10px 14px}
+.ps tr.z td{font-weight:800;background:#e8f7ef;color:#0f7a4f;padding:10px 14px}
+.ps tr:not(.h):not(.t):not(.z):hover td{background:#f4f8ff}
+canvas{width:100%!important;height:270px!important}
+.bars{display:grid;gap:16px}
+.bar .t{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:6px}
+.bar .t span:last-child{color:var(--mut);font-weight:700}
+.bar .tr{height:12px;border-radius:8px;background:#e9eef7;overflow:hidden}
+.bar .f{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--teal),var(--green))}
+.bar.w .f{background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.bar.c .f{background:linear-gradient(90deg,var(--amber),#f5c75a)}
 </style></head><body><div class="wrap">
-<h1>План 2026–2027</h1><p class="sub">Остатки на 03.11.2026 · зарплата $4 500 по курсу НБРБ 2,946 · личные 1 200 в месяц</p>
+<div class="hero"><h1>План 2026–2027</h1><p class="sub">Остатки на 03.11.2026 · зарплата $4 500 по курсу НБРБ 2,946 · личные 1 200 в месяц</p>
+<div class="chips"><span class="chip">🤝 Стас закрыт: Март 2027</span><span class="chip">💳 Все кредиты закрыты: Октябрь 2027</span><span class="chip">🛡 Подушка 15 000: Июнь 2027</span><span class="chip">💍 Свадьба $13 951 к дек 2027</span></div></div>
 <div class="tiles">
-<div class="tile"><div class="l">Кредиты сейчас</div><div class="v">47 076</div><div class="n">BYN, 15 продуктов</div></div>
-<div class="tile"><div class="l">Стас</div><div class="v">$7 250</div><div class="n">закрыт: Март 2027</div></div>
-<div class="tile"><div class="l">Все кредиты закрыты</div><div class="v">Октябрь 2027</div><div class="n">проценты за период ≈ 5 737</div></div>
-<div class="tile"><div class="l">Срочный запас</div><div class="v">2 565</div><div class="n">3 000+ с января, всегда на месте</div></div>
-<div class="tile"><div class="l">Подушка 4 месяца</div><div class="v">Июнь 2027</div><div class="n">≈ 15 000 BYN</div></div>
-<div class="tile"><div class="l">Свадьба к дек 2027</div><div class="v">$13 951</div><div class="n">цель $15 000, лето 2028</div></div>
+<div class="tile" style="--ac:var(--red)"><span class="ic">💳</span><div class="l">Кредиты сейчас</div><div class="v">47 076</div><div class="n">BYN, 15 продуктов</div></div>
+<div class="tile" style="--ac:var(--amber)"><span class="ic">🤝</span><div class="l">Стас</div><div class="v">$7 250</div><div class="n">закрыт: Март 2027</div></div>
+<div class="tile" style="--ac:var(--indigo)"><span class="ic">🏁</span><div class="l">Кредиты закрыты</div><div class="v">Октябрь 2027</div><div class="n">проценты за период ≈ 5 737</div></div>
+<div class="tile" style="--ac:var(--teal)"><span class="ic">🛟</span><div class="l">Срочный запас</div><div class="v">2 565</div><div class="n">3 000+ с января, всегда на месте</div></div>
+<div class="tile" style="--ac:var(--green)"><span class="ic">🛡</span><div class="l">Подушка 4 месяца</div><div class="v">Июнь 2027</div><div class="n">≈ 15 000 BYN</div></div>
+<div class="tile" style="--ac:var(--blue)"><span class="ic">💍</span><div class="l">Свадьба к дек 2027</div><div class="v">$13 951</div><div class="n">цель $15 000, лето 2028</div></div>
 </div>
 <div class="grid"><div>
 <div class="card"><div class="mh"><button id="pv">‹</button><select id="msel"></select><button id="nx">›</button></div><h2 id="mt">Платёжка месяца, BYN</h2><div id="sheet"></div></div>
-<div class="card"><h2>Все месяцы, BYN</h2><div class="sc"><table><thead><tr><th class="m">Месяц</th><th>Зарплата</th><th>Быт</th><th>Личные</th><th>Разовое</th><th>Кредиты</th><th>Стас</th><th>Мама</th><th>В запас</th><th>В свадьбу</th><th>Досрочно</th><th>Запас</th><th>Свадьба</th><th>Долги</th></tr></thead><tbody>
+<div class="card"><h2>🗓 Все месяцы, BYN</h2><div class="sc"><table><thead><tr><th class="m">Месяц</th><th>Зарплата</th><th>Быт</th><th>Личные</th><th>Разовое</th><th>Кредиты</th><th>Стас</th><th>Мама</th><th>В запас</th><th>В свадьбу</th><th>Досрочно</th><th>Запас</th><th>Свадьба</th><th>Долги</th></tr></thead><tbody>
 <tr class="cur"><td class="m">Ноябрь 2026</td><td>9 059</td><td>1 850</td><td>400</td><td>1 500</td><td>2 414</td><td>—</td><td>250</td><td class="g">2 565</td><td class="g">—</td><td class="b">—</td><td class="s">2 565</td><td class="s">0</td><td class="d">45 374</td></tr><tr><td class="m">Декабрь 2026</td><td>13 320</td><td>1 850</td><td>100</td><td>1 000</td><td>3 360</td><td>$2 000</td><td>570</td><td class="g">360</td><td class="g">—</td><td class="b">—</td><td class="s">2 925</td><td class="s">0</td><td class="d">42 700</td></tr><tr><td class="m">Январь 2027</td><td>13 257</td><td>1 850</td><td>800</td><td>—</td><td>1 914</td><td>$2 500</td><td>1 000</td><td class="g">113</td><td class="g">—</td><td class="b">—</td><td class="s">3 038</td><td class="s">0</td><td class="d">41 432</td></tr><tr><td class="m">Февраль 2027</td><td>13 257</td><td>1 850</td><td>1 200</td><td>—</td><td>1 914</td><td>$2 000</td><td>—</td><td class="g">2 213</td><td class="g">—</td><td class="b">—</td><td class="s">5 251</td><td class="s">0</td><td class="d">40 144</td></tr><tr><td class="m">Март 2027</td><td>13 257</td><td>1 850</td><td>800</td><td>900</td><td>1 914</td><td>$900</td><td>600</td><td class="g">1 765</td><td class="g">1 324</td><td class="b">1 324</td><td class="s">7 017</td><td class="s">1 324</td><td class="d">37 513</td></tr><tr><td class="m">Апрель 2027</td><td>13 257</td><td>1 850</td><td>700</td><td>1 000</td><td>1 914</td><td>—</td><td>—</td><td class="g">3 085</td><td class="g">2 314</td><td class="b">2 314</td><td class="s">10 102</td><td class="s">3 638</td><td class="d">33 844</td></tr><tr><td class="m">Май 2027</td><td>13 257</td><td>1 750</td><td>1 200</td><td>—</td><td>1 774</td><td>—</td><td>—</td><td class="g">3 381</td><td class="g">2 536</td><td class="b">2 536</td><td class="s">13 483</td><td class="s">6 174</td><td class="d">30 034</td></tr><tr><td class="m">Июнь 2027</td><td>13 257</td><td>1 750</td><td>700</td><td>1 250</td><td>1 674</td><td>—</td><td>—</td><td class="g">1 573</td><td class="g">2 341</td><td class="b">3 889</td><td class="s">15 056</td><td class="s">8 514</td><td class="d">24 913</td></tr><tr><td class="m">Июль 2027</td><td>13 257</td><td>1 750</td><td>700</td><td>1 350</td><td>974</td><td>—</td><td>—</td><td class="g">—</td><td class="g">2 521</td><td class="b">5 882</td><td class="s">15 056</td><td class="s">11 035</td><td class="d">18 423</td></tr><tr><td class="m">Август 2027</td><td>13 257</td><td>1 750</td><td>1 200</td><td>—</td><td>524</td><td>—</td><td>—</td><td class="g">—</td><td class="g">2 911</td><td class="b">6 792</td><td class="s">15 056</td><td class="s">13 946</td><td class="d">13 711</td></tr><tr><td class="m">Сентябрь 2027</td><td>13 257</td><td>1 750</td><td>1 200</td><td>—</td><td>237</td><td>—</td><td>—</td><td class="g">—</td><td class="g">2 997</td><td class="b">6 993</td><td class="s">15 056</td><td class="s">16 943</td><td class="d">9 000</td></tr><tr><td class="m">Октябрь 2027</td><td>13 257</td><td>1 850</td><td>1 200</td><td>—</td><td>127</td><td>—</td><td>—</td><td class="g">—</td><td class="g">5 658</td><td class="b">7 000</td><td class="s">15 056</td><td class="s">22 600</td><td class="d">0</td></tr><tr><td class="m">Ноябрь 2027</td><td>13 257</td><td>1 850</td><td>1 200</td><td>—</td><td>0</td><td>—</td><td>—</td><td class="g">—</td><td class="g">10 127</td><td class="b">7 089</td><td class="s">15 056</td><td class="s">32 727</td><td class="d">0</td></tr><tr><td class="m">Декабрь 2027</td><td>13 257</td><td>1 850</td><td>1 200</td><td>1 000</td><td>0</td><td>—</td><td>—</td><td class="g">—</td><td class="g">9 127</td><td class="b">6 389</td><td class="s">15 056</td><td class="s">41 854</td><td class="d">0</td></tr></tbody></table></div></div>
-<div class="card"><h2>Долги: остаток, ставка, закрытие</h2><div class="sc"><table><thead><tr><th class="m">Долг</th><th>Остаток, BYN</th><th>Ставка</th><th>Платёж</th><th>Закрыт</th></tr></thead><tbody>
+<div class="card"><h2>💳 Долги: остаток, ставка, закрытие</h2><div class="sc"><table><thead><tr><th class="m">Долг</th><th>Остаток, BYN</th><th>Ставка</th><th>Платёж</th><th>Закрыт</th></tr></thead><tbody>
 <tr><td class="m">Альфа: рассрочка</td><td>974</td><td>18%</td><td>300</td><td class="c">дек 26</td></tr><tr><td class="m">Маша: рассрочка</td><td>922</td><td>18%</td><td>200</td><td class="c">дек 26</td></tr><tr><td class="m">БНБ Кредит Мэтч+</td><td>2 442</td><td>24.9%</td><td>119</td><td class="c">апр 27</td></tr><tr><td class="m">Альфа: овердрафт</td><td>1 000</td><td>18%</td><td>15</td><td class="c">апр 27</td></tr><tr><td class="m">Маша: овердрафт</td><td>606</td><td>18%</td><td>5</td><td class="c">апр 27</td></tr><tr><td class="m">Маша: Красная карта 2.0</td><td>1 842</td><td>18%</td><td>100</td><td class="c">май 27</td></tr><tr><td class="m">Альфа: кредит на технику</td><td>3 800</td><td>18%</td><td>350</td><td class="c">июн 27</td></tr><tr><td class="m">Альфа: Красная карта 2.0</td><td>2 860</td><td>18%</td><td>200</td><td class="c">июн 27</td></tr><tr><td class="m">Маша: карта 100 дней</td><td>3 040</td><td>18%</td><td>150</td><td class="c">июн 27</td></tr><tr><td class="m">Маша: кредит наличных</td><td>4 180</td><td>18%</td><td>250</td><td class="c">июл 27</td></tr><tr><td class="m">Мама: карта 100 дней</td><td>4 456</td><td>18%</td><td>200</td><td class="c">июл 27</td></tr><tr><td class="m">Альфа: кредит на ПК</td><td>4 951</td><td>18%</td><td>238</td><td class="c">авг 27</td></tr><tr><td class="m">Маша: Сбер кредит</td><td>1 930</td><td>17.96%</td><td>50</td><td class="c">авг 27</td></tr><tr><td class="m">Альфа: карта 100 дней</td><td>5 074</td><td>18%</td><td>110</td><td class="c">сен 27</td></tr><tr><td class="m">БНБ: овердрафт</td><td>8 999</td><td>16.94%</td><td>127</td><td class="c">окт 27</td></tr><tr><td class="m">Стас (новые доллары)</td><td>$7 250</td><td>—</td><td>по плану</td><td class="c">мар 27</td></tr><tr><td class="m">Мама (1 250 BYN + 170 € + $200)</td><td>≈ 2 420</td><td>—</td><td>по плану</td><td class="c">мар 27</td></tr></tbody></table></div></div>
 </div><div>
-<div class="card"><h2>Долги</h2><canvas id="c1"></canvas></div>
-<div class="card"><h2>Накопления</h2><canvas id="c2"></canvas></div>
-<div class="card"><h2>Цели к декабрю 2027</h2><div class="bars">
+<div class="card"><h2>📉 Долги</h2><canvas id="c1"></canvas></div>
+<div class="card"><h2>🛡 Накопления</h2><canvas id="c2"></canvas></div>
+<div class="card"><h2>🎯 Цели к декабрю 2027</h2><div class="bars">
 <div class="bar"><div class="t"><span>Все кредиты</span><span>закрыты окт 27</span></div><div class="tr"><div class="f" style="width:100%"></div></div></div>
 <div class="bar"><div class="t"><span>Стас</span><span>закрыт мар 27</span></div><div class="tr"><div class="f" style="width:100%"></div></div></div>
-<div class="bar"><div class="t"><span>Подушка</span><span>15 056 из 15 056</span></div><div class="tr"><div class="f" style="width:100%"></div></div></div>
-<div class="bar"><div class="t"><span>Свадьба $15 000</span><span>$13 951</span></div><div class="tr"><div class="f" style="width:93%"></div></div></div>
+<div class="bar c"><div class="t"><span>Подушка</span><span>15 056 из 15 056</span></div><div class="tr"><div class="f" style="width:100%"></div></div></div>
+<div class="bar w"><div class="t"><span>Свадьба $15 000</span><span>$13 951</span></div><div class="tr"><div class="f" style="width:93%"></div></div></div>
 <div class="bar"><div class="t"><span>Права 2 500</span><span>июн–июл 27</span></div><div class="tr"><div class="f" style="width:100%"></div></div></div>
 </div></div>
 </div></div></div>
@@ -62,6 +100,11 @@ m.groups.forEach(g=>{h+='<tr class="h '+CLS[g[0]]+'"><td>'+g[0]+'</td><td class=
 h+='<tr class="t"><td>Итого платы</td><td class="a">'+fmt(m.total)+'</td></tr><tr class="z"><td>Остаток</td><td class="a">'+fmt(m.rest)+'</td></tr></table>';document.getElementById("sheet").innerHTML=h;document.getElementById("mt").textContent="Платёжка · "+m.m+", BYN";}
 sel.onchange=()=>showM(+sel.value);document.getElementById("pv").onclick=()=>showM(+sel.value-1);document.getElementById("nx").onclick=()=>showM(+sel.value+1);
 (()=>{const d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");let i=MS.indexOf(k);if(i<0)i=(k<MS[0]?0:MS.length-1);showM(i);})();
-new Chart(document.getElementById('c1'),{type:'line',data:{labels:D.labels,datasets:[{label:'Кредиты, BYN',data:D.credits,borderColor:col('--red'),backgroundColor:col('--red'),tension:.25,pointRadius:2},{label:'Стас, BYN (×3)',data:D.stas,borderColor:col('--orange'),backgroundColor:col('--orange'),tension:.25,pointRadius:2}]},options:base});
-new Chart(document.getElementById('c2'),{type:'line',data:{labels:D.labels,datasets:[{label:'Запас и подушка',data:D.cushion,borderColor:col('--green'),backgroundColor:col('--green'),tension:.25,pointRadius:2},{label:'Свадьба',data:D.wedding,borderColor:col('--blue'),backgroundColor:col('--blue'),tension:.25,pointRadius:2}]},options:base});
+
+const g=(ctx,c1,c2)=>{const h=ctx.canvas.clientHeight||260;const gr=ctx.createLinearGradient(0,0,0,h);gr.addColorStop(0,c1);gr.addColorStop(1,c2);return gr;};
+const fm=v=>Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ");
+const opt={responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,color:'#475569',font:{weight:600}}},tooltip:{backgroundColor:'#16233a',padding:10,callbacks:{label:c=>c.dataset.label+': '+fm(c.parsed.y)}}},scales:{x:{grid:{display:false},ticks:{color:'#64748b',maxRotation:0}},y:{grid:{color:'#edf1f8'},ticks:{color:'#64748b',callback:v=>fm(v)}}}};
+const c1=document.getElementById('c1').getContext('2d'),c2=document.getElementById('c2').getContext('2d');
+new Chart(c1,{type:'line',data:{labels:D.labels,datasets:[{label:'Кредиты, BYN',data:D.credits,borderColor:'#d94a4a',backgroundColor:g(c1,'rgba(217,74,74,.35)','rgba(217,74,74,0)'),fill:true,tension:.3,pointRadius:0,borderWidth:3},{label:'Стас, BYN (×3)',data:D.stas,borderColor:'#f0a020',backgroundColor:g(c1,'rgba(240,160,32,.35)','rgba(240,160,32,0)'),fill:true,tension:.3,pointRadius:0,borderWidth:3}]},options:opt});
+new Chart(c2,{type:'line',data:{labels:D.labels,datasets:[{label:'Запас и подушка',data:D.cushion,borderColor:'#1f9d6a',backgroundColor:g(c2,'rgba(31,157,106,.35)','rgba(31,157,106,0)'),fill:true,tension:.3,pointRadius:0,borderWidth:3},{label:'Свадьба',data:D.wedding,borderColor:'#3b6fe0',backgroundColor:g(c2,'rgba(59,111,224,.35)','rgba(59,111,224,0)'),fill:true,tension:.3,pointRadius:0,borderWidth:3}]},options:opt});
 </script></body></html>
